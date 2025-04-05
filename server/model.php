@@ -18,30 +18,34 @@ define("DBNAME", "viroulaud8");
 define("DBLOGIN", "viroulaud8");
 define("DBPWD", "viroulaud8");
 
-// function getMovie(){
-//     // Connexion à la base de données
-//     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-//     // Requête SQL pour récupérer le nom, l'image et l'id du film
-//     $sql = "SELECT id, name, image FROM Movie";
-
-//     // exécution de la requête SQL via la connexion à la bdd et récupération de la réponse sur serveur MySQL
-//     $answer = $cnx->query($sql);
-//     // conversion des lignes récupérées en tableau d'objets (chaque ligne devient un objet)
-//     $res = $answer->fetchAll(PDO::FETCH_OBJ);
-//     // et on renvoie le tout.
-//     return $res; // Retourne les résultats
-// }
-
 function getAllMovies(){
-    // Connexion à la base de données
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    // Requête SQL pour récupérer le menu avec des paramètres
     $sql = "select id, name, image from Movie";
-    // Prépare la requête SQL
     $stmt = $cnx->prepare($sql);
-    // Exécute la requête SQL
     $stmt->execute();
-    // Récupère les résultats de la requête sous forme d'objets
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
+}
+
+function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+
+    $sql = "REPLACE INTO Movie (name, director, year, length, description, id_category, image, trailer, min_age) 
+            VALUES (:titre, :realisateur, :annee, :duree, :desc, :categorie, :image, :url, :age)";
+
+    $stmt = $cnx->prepare($sql);
+
+    $stmt->bindParam(':titre', $titre);
+    $stmt->bindParam(':realisateur', $real);
+    $stmt->bindParam(':annee', $annee);
+    $stmt->bindParam(':duree', $duree);
+    $stmt->bindParam(':desc', $des);
+    $stmt->bindParam(':categorie', $cat);
+    $stmt->bindParam(':image', $img);
+    $stmt->bindParam(':url', $url);
+    $stmt->bindParam(':age', $age);
+
+    $stmt->execute();
+    $res = $stmt->rowCount();
+    return $res;
 }

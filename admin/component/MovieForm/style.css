@@ -4,7 +4,7 @@
 
 .addMovie__title {
     margin-bottom: 0.2rem;
-    color: #fff;
+    color: #000000;
   
 }
 
@@ -14,27 +14,25 @@
     border-style: solid;
     border-width: 1px;
     border-color: rgb(255, 255, 255);
-    padding:1.5rem;
+    padding: 1.5rem;
 }
 
 .addMovie__form select {
     font-size: medium;
-    border-style: none;
-    margin-top: .8rem;
+    margin-top: 0.8rem;
 }
 
 .addMovie__form input {
-    margin-top: .8rem;
+    padding: 2rem;
+    margin-top: 0.8rem;
     font-size: medium;
-    border-style: none;
+    border-radius: .8rem;
     display: inline-block;
     height: 2rem;
     
 }
 
 .addMovie__form input[type=button] {
-    background-color: rgb(113, 91, 69);
+    background-color: rgb(43, 43, 43);
     color:#fff;
-    
-   
 }

@@ -56,11 +56,18 @@ if ( isset($_REQUEST['todo']) ){
       $data = readMoviesController();
       break;
 
+    case 'addMovie':
+      $data = addMovieController();
+    break;
+
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');
       http_response_code(400); // 400 == "Bad request"
       exit();
   }
+
+  // Exemple de gestion des données côté serveur (PHP)
+
 
   /**
    * A ce stade, on a appelé la fonction de contrôleur appropriée et stocké le résultat dans la variable $data.
