@@ -41,6 +41,7 @@
       C.handlerDetail = async function (movieId) {
         let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
         V.renderMovieDetail(movieData); // Affiche les détails du film
+        
       };
 
       /* C.getMovie
@@ -48,8 +49,9 @@
         La fonction affiche sur la page la collection de films par défaut
       */
       C.getMovie = async function () {
-        let data = await DataMovie.requestMovies(); // On récupère les données par défaut et on attend avec await
-        V.renderMovie(data); // Affiche les données
+        let data = await DataMovie.requestMoviesByCategory(); // On récupère les données par défaut et on attend avec await
+        
+        V.renderMoviesCategory(data);
       };
 
       C.start = function () {
