@@ -12,6 +12,7 @@
 
     <section class="cards" id="content"></section>
     <section class="infos" id="infos"></section>
+    <section class="category" id="category"></section>
 
     <script type="module">
       // Importation de la NavBar
@@ -22,6 +23,9 @@
       import { Movie } from "./component/Movie/script.js";
       // Importation de la DataMovieDetails
       import { MovieDetail } from "./component/movieDetail/script.js";
+
+      import { MovieCategory } from "./component/movieCategory/script.js";
+
       
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -87,7 +91,7 @@
         content.innerHTML = MovieDetail.format(movieData);
       };
 
-      V.renderMoviesByCategory = function (data) {
+      V.renderMoviesCategory = function (data) {
         let content = document.querySelector("#content");
         content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
       };

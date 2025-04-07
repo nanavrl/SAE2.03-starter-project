@@ -64,7 +64,7 @@ if ( isset($_REQUEST['todo']) ){
       $data = readMovieDetailController();
     break;
 
-    case 'readMovies': // Nouveau cas pour récupérer les films groupés par catégorie
+    case 'readMoviesCategory': // Nouveau cas pour récupérer les films groupés par catégorie
       $data = readMoviesByCategoryController();
     break;
 
