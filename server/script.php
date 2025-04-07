@@ -60,6 +60,14 @@ if ( isset($_REQUEST['todo']) ){
       $data = addMovieController();
     break;
 
+    case 'readMovieDetail': // Nouveau cas pour récupérer les détails d'un film
+      $data = readMovieDetailController();
+    break;
+
+    case 'readMovies': // Nouveau cas pour récupérer les films groupés par catégorie
+      $data = readMoviesByCategoryController();
+    break;
+
     default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
       echo json_encode('[error] Unknown todo value');
       http_response_code(400); // 400 == "Bad request"

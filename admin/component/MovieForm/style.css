@@ -1,14 +1,14 @@
-.addMovie {
+.addFilm {
     width:30rem;
 }
 
-.addMovie__title {
+.addFilm__title {
     margin-bottom: 0.2rem;
     color: #000000;
   
 }
 
-.addMovie__form {
+.addFilm__form {
     display: flex;
     flex-direction: column;
     border-style: solid;
@@ -17,12 +17,12 @@
     padding: 1.5rem;
 }
 
-.addMovie__form select {
+.addFilm__form select {
     font-size: medium;
     margin-top: 0.8rem;
 }
 
-.addMovie__form input {
+.addFilm__form input {
     padding: 2rem;
     margin-top: 0.8rem;
     font-size: medium;
@@ -32,7 +32,7 @@
     
 }
 
-.addMovie__form input[type=button] {
+.addFilm__form input[type=button] {
     background-color: rgb(43, 43, 43);
     color:#fff;
 }

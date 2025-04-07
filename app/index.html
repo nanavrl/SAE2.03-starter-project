@@ -11,6 +11,7 @@
     <header id="header"></header>
 
     <section class="cards" id="content"></section>
+    <section class="infos" id="infos"></section>
 
     <script type="module">
       // Importation de la NavBar
@@ -19,7 +20,9 @@
       // Importation des composants Movie et de sa Data
       import { DataMovie } from "./data/dataMovie.js";
       import { Movie } from "./component/Movie/script.js";
-
+      // Importation de la DataMovieDetails
+      import { MovieDetail } from "./component/movieDetail/script.js";
+      
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
       // Une fois l'application terminée, on pourrait remettre let C.
@@ -30,9 +33,10 @@
           "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
         );
       };
-      C.start = function () {
-        V.renderNavBar("C.handlerAbout()");
-        C.getMovie(); // Appelle la fonction pour récupérer les films
+
+      C.handlerDetail = async function (movieId) {
+        let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
+        V.renderMovieDetail(movieData); // Affiche les détails du film
       };
 
       /* C.getMovie
@@ -43,6 +47,13 @@
         let data = await DataMovie.requestMovies(); // On récupère les données par défaut et on attend avec await
         V.renderMovie(data); // Affiche les données
       };
+
+      C.start = function () {
+        V.renderNavBar("C.handelAbout()");
+        C.getMovie();
+      };
+
+      
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
@@ -71,7 +82,18 @@
         content.innerHTML = Movie.format(data);
       };
 
+      V.renderMovieDetail = function (movieData) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieDetail.format(movieData);
+      };
+
+      V.renderMoviesByCategory = function (data) {
+        let content = document.querySelector("#content");
+        content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
+      };
+
       C.start(); // Démarre l'application
+      
     </script>
   </body>
 </html>

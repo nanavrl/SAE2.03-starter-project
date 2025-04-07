@@ -57,4 +57,25 @@ function addMovieController(){
     else{
       return "Erreur lors de l'ajout du film $titre !";
     }
+}
+
+function readMovieDetailController() {
+
+  if (!isset($_REQUEST['id'])) {
+      return false; 
   }
+
+  $id = intval($_REQUEST['id']);
+  $movie = getMovieDetail($id);
+
+  if ($movie) {
+      return $movie;
+  } else {
+      return false;
+  }
+}
+
+function readMoviesByCategoryController() {
+  $categories = getMoviesByCategory();
+  return $categories ? $categories : false;
+}
