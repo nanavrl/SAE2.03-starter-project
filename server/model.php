@@ -130,3 +130,40 @@ function getMoviesByCategory() {
         return false;
     }
 }
+
+function addProfile($id, $name, $avatar, $min_age) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+
+    // Utilisation de REPLACE INTO pour insérer ou remplacer une ligne
+    $sql = "REPLACE INTO Profil (id, name, avatar, min_age) 
+            VALUES (:id, :name, :avatar, :min_age)";
+
+    $stmt = $cnx->prepare($sql);
+
+    // Liaison des paramètres
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
+    $stmt->bindParam(':min_age', $min_age, PDO::PARAM_INT);
+
+    $stmt->execute();
+    $res = $stmt->rowCount();
+    return $res; // Retourne le nombre de lignes affectées par l'opération
+}
+
+
+function getProfiles() {
+    try {
+        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+
+        // Requête SQL pour récupérer les profils
+        $sql = "SELECT id, name, avatar, min_age FROM Profil";
+        $stmt = $cnx->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les profils sous forme d'objets
+    } catch (Exception $e) {
+        error_log("Erreur SQL : " . $e->getMessage());
+        return false;
+    }
+}

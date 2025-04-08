@@ -1,0 +1,38 @@
+.addProfile {
+    width:30rem;
+}
+
+.addProfile__title {
+    margin-bottom: 0.2rem;
+    color: #000000;
+  
+}
+
+.addProfile__form {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(255, 255, 255);
+    padding: 1.5rem;
+}
+
+.addProfile__form select {
+    font-size: medium;
+    margin-top: 0.8rem;
+}
+
+.addProfile__form input {
+    padding: 2rem;
+    margin-top: 0.8rem;
+    font-size: medium;
+    border-radius: .8rem;
+    display: inline-block;
+    height: 2rem;
+    
+}
+
+.addProfile__form input[type=button] {
+    background-color: rgb(43, 43, 43);
+    color:#fff;
+}

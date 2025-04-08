@@ -52,6 +52,8 @@ if ( isset($_REQUEST['todo']) ){
   // peut s'écrire aussi avec des if/else
   switch($todo){
 
+    // FILMS
+
     case 'readmovies':
       $data = readMoviesController();
       break;
@@ -60,17 +62,30 @@ if ( isset($_REQUEST['todo']) ){
       $data = addMovieController();
     break;
 
-    case 'readMovieDetail': // Nouveau cas pour récupérer les détails d'un film
+    case 'addProfile':
+      $data = addProfileController();
+    break;
+
+    case 'readMovieDetail':
       $data = readMovieDetailController();
     break;
 
-    case 'readMoviesCategory': // Nouveau cas pour récupérer les films groupés par catégorie
+    // CATEGORIES
+
+    case 'readMoviesCategory': 
       $data = readMoviesByCategoryController();
     break;
 
-    default: // il y a un paramètre todo mais sa valeur n'est pas reconnue/supportée
+    // PROFILES
+
+    case 'readProfiles': 
+      $data = readProfilesController();
+      break;
+
+      
+    default: 
       echo json_encode('[error] Unknown todo value');
-      http_response_code(400); // 400 == "Bad request"
+      http_response_code(400); 
       exit();
   }
 
