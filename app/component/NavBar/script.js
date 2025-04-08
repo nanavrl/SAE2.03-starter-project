@@ -18,6 +18,8 @@ NavBar.format = function (hAbout, hShowMovies, profiles) {
 
   html = html.replace("{{options}}", options);
   html = html.replace("{{image}}", image);
+  html = html.replace ("{{handler}}", C.handlerProfile() )
+
   return html;
 };
 

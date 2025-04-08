@@ -152,18 +152,16 @@ function addProfile($id, $name, $avatar, $min_age) {
 }
 
 
-function getProfiles() {
-    try {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-
-        // Requête SQL pour récupérer les profils
-        $sql = "SELECT id, name, avatar, min_age FROM Profil";
-        $stmt = $cnx->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_OBJ); // Retourne les profils sous forme d'objets
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage());
-        return false;
-    }
+function readProfile() {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer le menu avec des paramètres
+    $sql = "select id, name, avatar, min_age from Profil";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
 }

@@ -15,67 +15,74 @@
     <section class="category" id="category"></section>
 
     <script type="module">
-      // Importation de la NavBar
       import { NavBar } from "./component/NavBar/script.js";
-
-      // Importation des composants Movie et de sa Data
-      import { DataMovie } from "./data/dataMovie.js";
       import { Movie } from "./component/Movie/script.js";
-      // Importation de la DataMovieDetails
+      import { DataMovie } from "./data/dataMovie.js";
       import { MovieDetail } from "./component/movieDetail/script.js";
 
       import { MovieCategory } from "./component/movieCategory/script.js";
 
-      
+      import { DataProfile } from "./data/dataProfile.js";
+
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
       C.handlerAbout = function () {
-        alert(
-          "Ceci est une base de projet pour la SAE2.03 édition 2025. Bonne chance !"
-        );
+        C.getMovie();
       };
 
       C.handlerDetail = async function (movieId) {
         let movieData = await DataMovie.requestMovieDetails(movieId); // Récupère les détails du film
         V.renderMovieDetail(movieData); // Affiche les détails du film
-        
       };
 
-      C.handleProfileChange = function (selectElement) {
-        const selectedOption =
-          selectElement.options[selectElement.selectedIndex];
-        const newImage = selectedOption.dataset.img; // Récupère l'attribut data-img
-        const profileImage = document.querySelector(".profile-image");
-        const defaultImage =
-          "https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/default-avatar.png"; // Chemin de l'image par défaut
+      C.handlerProfile = async function () {
+        const select = document.querySelector("#profile-select");
+       
+        const profileName = selectedOption.value;
+        const dob = selectedOption.getAttribute("data-dob");
+        const imageFilename = selectedOption.getAttribute("data-img");
+        const picture = document.querySelector("#profile-image");
+        const base =
+          "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/";
+        picture.src = base + imageFilename;
+        V.renderMovie(data);
+      };
 
-        // Construit l'URL complète de l'image ou utilise l'image par défaut si newImage est vide
-        profileImage.src = newImage
-          ? `https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${newImage}`
-          : defaultImage;
+      C.start = async function () {
+        let profiles = await DataProfile.read();
+        V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles);
 
+
+        try {
+          let data = await DataMovie.requestMoviesByCategory();
+    
+          if (!data) {
+            console.error(
+              "C.start: No data received from requestMoviesByCategory"
+            );
+            return;
+          }
+          V.renderMoviesCategory(data);
+        } catch (error) {
+          console.error("C.start: Error fetching data", error);
+        }
         C.getMovie();
       };
+      
+    
+      
 
-      /* C.getMovie
-
-        La fonction affiche sur la page la collection de films par défaut
-      */
       C.getMovie = async function () {
-        let data = await DataMovie.requestMoviesByCategory(); // On récupère les données par défaut et on attend avec await
-        
+        let data = await DataMovie.requestMoviesByCategory();
+        if (!Array.isArray(data)) {
+          console.error("Data is not an array:", data);
+          return;
+        }
         V.renderMoviesCategory(data);
       };
-
-      C.start = function () {
-        V.renderNavBar("C.handelAbout()");
-        C.getMovie();
-      };
-
-      
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
@@ -87,9 +94,10 @@
        * Elle sélectionne l'élément HTML avec l'ID "header" et y insère le contenu
        * formaté par le composant NavBar.
        */
-      V.renderNavBar = function (hAbout) {
+
+      V.renderNavBar = function (hAbout, hShowMovies, profiles) {
         let header = document.querySelector("#header");
-        header.innerHTML = NavBar.format(hAbout);
+        header.innerHTML = NavBar.format(hAbout, hShowMovies, profiles);
       };
 
       /**
@@ -110,12 +118,19 @@
       };
 
       V.renderMoviesCategory = function (data) {
+        if (!Array.isArray(data)) {
+          console.error("V.renderMoviesCategory: data is not iterable", data);
+          return;
+        }
         let content = document.querySelector("#content");
-        content.innerHTML = data.map(MovieCategory.format).join(""); // Format each category
+        let formattedContent = "";
+        for (let category of data) {
+          formattedContent += MovieCategory.format(category);
+        }
+        content.innerHTML = formattedContent;
       };
 
       C.start(); // Démarre l'application
-      
     </script>
   </body>
 </html>
