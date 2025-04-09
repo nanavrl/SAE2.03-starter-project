@@ -13,6 +13,7 @@ let DataProfile = {};
 
 DataProfile.read = async function () {
   let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfile");
+  
   let Profiles = await answer.json();
   return Profiles;
 };

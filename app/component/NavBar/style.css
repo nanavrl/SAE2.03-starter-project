@@ -1,45 +1,71 @@
+/* ===== NAVBAR ===== */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 3rem;
-  color: var(--color-fg);
-  background-color: var(--color-black);
-
-  .navbar__item {
-    --_offset: 0.2rem;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    list-style: none;
-    text-decoration-thickness: 0.1rem;
-    text-underline-offset: var(--_offset);
-    cursor: pointer;
-    transition: text-underline-offset 0.2s ease-in-out;
-    &:hover {
-      --_offset: 0.5rem;
-    }
-  }
+  padding: 1rem 2rem;
+  background-color: #f5f5f5;  /* Couleur de fond claire */
+  color: var(--color-black);
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);  /* Ombre subtile */
+  gap: 2rem;
+  flex-wrap: wrap;
+  font-family: 'Poppins', sans-serif;
 }
 
-.navbar__select{
+/* ===== ITEMS ===== */
+.navbar__item {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+  color: var(--color-black);
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  margin-right: 1rem; /* Espacement entre les éléments */
+  list-style: none;  /* Suppression du point de liste */
+}
+
+.navbar__item:hover {
+  color: var(--color-white);
+  transform: translateY(-2px);  /* Légère élévation au survol */
+  background-color: var(--color-black);  /* Légère couleur de fond au survol */
+}
+
+
+/* ===== SELECT DROPDOWN / LANGUAGE OR SORT ===== */
+.navbar__select {
   display: flex;
   align-items: center;
-  padding: 0.3rem 0.5rem;
-  background-color: var(--color-white);
+  padding: 0.3rem 0.75rem;
+  background-color: #ffffff;
+  color: var(--color-black);
   border-radius: 0.5rem;
   cursor: pointer;
+  font-size: 0.95rem;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease;
 }
 
+.navbar__select:hover {
+  background-color: #eaeaea;
+}
+
+/* ===== PROFILE SECTION ===== */
 .navbar__profile {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
-.navbar__picture{
+/* Image du profil */
+.navbar__picture {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
-  background-color: var(--color-black);
-  border: 0.1rem solid var(--color-fg);
-  margin-left: 2rem;
+  background-color: #ccc;  /* Couleur de fond si l'image est manquante */
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);  /* Ombre subtile */
 }

@@ -39,19 +39,39 @@
       };
 
       C.handlerProfile = async function () {
-        const selectElement = document.querySelector("#profile-select");
-        const selectedOption = selectElement.options[selectElement.selectedIndex];
-      
-        const profileName = selectedOption.value;
-        const imageFilename = selectedOption.getAttribute("data-img");
-        const ageFilename = selectedOption.getAttribute("data-age");
-        const base =
-          "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/";
-        picture.src = base + imageFilename;
-        V.renderMovie(data);
-        C.getMovie();
-      };
+  const selectElement = document.querySelector("#profile-select");
+  const selectedOption = selectElement.options[selectElement.selectedIndex];
+  const imageFilename = selectedOption.getAttribute("data-img");
+  const defaultImage =
+    "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/default-avatar.png";
 
+  // Récupère l'élément de l'image du profil
+  const profileImage = document.querySelector("#profile-picture");
+
+  // Vérifie si l'élément existe
+  
+
+  // Construit l'URL complète de l'image ou utilise l'image par défaut si imageFilename est vide
+  profileImage.src = imageFilename
+    ? `https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/${imageFilename}`
+    : defaultImage;
+};
+
+
+      // C.handleProfileChange = function (selectElement) {
+      //   const selectedOption =
+      //     selectElement.options[selectElement.selectedIndex];
+      //   const newImage = selectedOption.dataset.img; // Récupère l'attribut data-img
+      //   const profileImage = document.querySelector(".profile-image");
+      //   const defaultImage =
+      //     "https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/default-avatar.png"; // Chemin de l'image par défaut
+
+      //   // Construit l'URL complète de l'image ou utilise l'image par défaut si newImage est vide
+      //   profileImage.src = newImage
+      //     ? `https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${newImage}`
+      //     : defaultImage;
+
+      //   C.getMovie();
 
       C.start = async function () {
         let profiles = await DataProfile.read();

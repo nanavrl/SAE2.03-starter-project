@@ -4,19 +4,39 @@ let template = await templateFile.text();
 
 let ProfileForm = {};
 
-ProfileForm.format = function(profiles, handler){
-    let html= template;
-    let options = profiles
-    .map(
-      (p) =>
-        `<option value="${p.id}" data-name="${p.name}" data-avatar="${p.avatar}" data-age="${p.min_age}">${p.name}</option>`
-    )
-    .join("");
+ProfileForm.format = function(profiles, handler) {
+  let html = template;
 
-    html = html.replace("{{options}}", options);
-    html = html.replace('{{handler}}', handler);
-    return html;
-}
+  if (!Array.isArray(profiles)) {
+    console.error("ProfileForm.format: 'profiles' n'est pas un tableau :", profiles);
+    profiles = [];
+  }
+
+  let options = "";
+  for (let i = 0; i < profiles.length; i++) {
+    const p = profiles[i];
+
+    // Validation des propriétés du profil
+    if (!p.id || !p.name || !p.avatar || typeof p.min_age === "undefined") {
+      console.warn("ProfileForm.format: Profil invalide détecté :", p);
+      continue; // Ignore les profils invalides
+    }
+
+    options += `<option value="${p.id}" data-name="${p.name}" data-avatar="${p.avatar}" data-age="${p.min_age}">${p.name}</option>`;
+  }
+
+  // Si aucune option valide n'est générée, afficher un message par défaut
+  if (!options) {
+    options = `<option disabled>Aucun profil disponible</option>`;
+  }
+
+  // Remplacement des placeholders dans le template
+  html = html.replace("{{options}}", options);
+  html = html.replace("{{handler}}", handler || "");
+
+  return html;
+};
+
 
 ProfileForm.init = function () {
     const select = document.getElementById("profile-select");

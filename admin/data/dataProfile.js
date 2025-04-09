@@ -67,7 +67,7 @@ DataProfile.updateProfile = async function (fdata) {
  * @returns {Array} Une liste de profils.
  */
 DataProfile.getProfiles = async function () {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfiles");
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfile");
   let data = await answer.json();
   return data;
 };
