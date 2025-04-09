@@ -39,17 +39,19 @@
       };
 
       C.handlerProfile = async function () {
-        const select = document.querySelector("#profile-select");
-       
+        const selectElement = document.querySelector("#profile-select");
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+      
         const profileName = selectedOption.value;
-        const dob = selectedOption.getAttribute("data-dob");
         const imageFilename = selectedOption.getAttribute("data-img");
-        const picture = document.querySelector("#profile-image");
+        const ageFilename = selectedOption.getAttribute("data-age");
         const base =
           "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/";
         picture.src = base + imageFilename;
         V.renderMovie(data);
+        C.getMovie();
       };
+
 
       C.start = async function () {
         let profiles = await DataProfile.read();
