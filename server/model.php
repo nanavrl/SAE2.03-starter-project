@@ -165,3 +165,39 @@ function readProfile() {
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
     return $res; // Retourne les résultats
 }
+
+
+function readOneProfile($id) {
+    // Connexion à la base de données
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    // Requête SQL pour récupérer le menu avec des paramètres
+    $sql = "select * from Profil where id = :id";
+    // Prépare la requête SQL
+    $stmt = $cnx->prepare($sql);
+    
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    // Exécute la requête SQL
+    $stmt->execute();
+    // Récupère les résultats de la requête sous forme d'objets
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res; // Retourne les résultats
+}
+
+/**
+ * Fonction pour récupérer les films en fonction de l'âge
+ * 
+ * @param int $age L'âge de l'utilisateur
+ * @return array Un tableau d'objets contenant les films accessibles à cet âge
+ */
+
+
+function getMoviesByAge($age) {
+    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+    $sql = "SELECT id, name, image, min_age FROM Movie WHERE min_age <= :age";
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+    $stmt->execute();
+    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return $res;
+}
+

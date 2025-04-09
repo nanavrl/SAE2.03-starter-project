@@ -29,6 +29,8 @@
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
+      C.profile = null; // Variable pour stocker le profil sélectionné      
+
       C.handlerAbout = function () {
         C.getMovie();
       };
@@ -39,72 +41,39 @@
       };
 
       C.handlerProfile = async function () {
-  const selectElement = document.querySelector("#profile-select");
-  const selectedOption = selectElement.options[selectElement.selectedIndex];
-  const imageFilename = selectedOption.getAttribute("data-img");
-  const defaultImage =
-    "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/default-avatar.png";
+        const select = document.querySelector("#profile-select");
+        let dataProfile = await DataProfile.readOne(select.value);
+        C.profile = dataProfile[0];
+      //  C.getMovie(C.profile.min_age);
+      };
 
-  // Récupère l'élément de l'image du profil
-  const profileImage = document.querySelector("#profile-picture");
-
-  // Vérifie si l'élément existe
-  
-
-  // Construit l'URL complète de l'image ou utilise l'image par défaut si imageFilename est vide
-  profileImage.src = imageFilename
-    ? `https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/${imageFilename}`
-    : defaultImage;
-};
-
-
-      // C.handleProfileChange = function (selectElement) {
-      //   const selectedOption =
-      //     selectElement.options[selectElement.selectedIndex];
-      //   const newImage = selectedOption.dataset.img; // Récupère l'attribut data-img
-      //   const profileImage = document.querySelector(".profile-image");
-      //   const defaultImage =
-      //     "https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/default-avatar.png"; // Chemin de l'image par défaut
-
-      //   // Construit l'URL complète de l'image ou utilise l'image par défaut si newImage est vide
-      //   profileImage.src = newImage
-      //     ? `https://mmi.unilim.fr/~lippler1/SAE203-Manon/server/images/${newImage}`
-      //     : defaultImage;
-
-      //   C.getMovie();
+      C.getMovie = async function (age) {
+        try {
+          let movies = await DataMovie.requestMovies(age);
+          if (!Array.isArray(movies) || movies.length === 0) {
+            document.querySelector("#content").innerHTML =
+              "<p>Aucun film disponible pour votre tranche d'âge.</p>";
+            return;
+          }
+          V.renderMoviesCategory(movies);
+        } catch (error) {
+          console.error(
+            "C.getMovie: Erreur lors de la récupération des films",
+            error
+          );
+        }
+        
+      };
 
       C.start = async function () {
         let profiles = await DataProfile.read();
         V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles);
-
-
-        try {
-          let data = await DataMovie.requestMoviesByCategory();
-    
-          if (!data) {
-            console.error(
-              "C.start: No data received from requestMoviesByCategory"
-            );
-            return;
-          }
-          V.renderMoviesCategory(data);
-        } catch (error) {
-          console.error("C.start: Error fetching data", error);
-        }
-        C.getMovie();
+        let moviesByCat = await DataMovie.requestMoviesByCategory();
+        V.renderMoviesCategory(moviesByCat);
+        //C.getMovie();
       };
-      
-    
-      
 
-      C.getMovie = async function () {
-        let data = await DataMovie.requestMoviesByCategory();
-        if (!Array.isArray(data)) {
-          console.error("Data is not an array:", data);
-          return;
-        }
-        V.renderMoviesCategory(data);
-      };
+      
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};

@@ -7,7 +7,8 @@
   background-color: #f5f5f5;  /* Couleur de fond claire */
   color: var(--color-black);
   border-radius: 1rem;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);  /* Ombre subtile */
+  border: 1px solid #ccc;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.09);  /* Ombre subtile */
   gap: 2rem;
   flex-wrap: wrap;
   font-family: 'Poppins', sans-serif;
@@ -37,19 +38,41 @@
 .navbar__select {
   display: flex;
   align-items: center;
-  padding: 0.3rem 0.75rem;
-  background-color: #ffffff;
-  color: var(--color-black);
-  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;  /* Fond blanc */
+  color: var(--color-black);  /* Texte noir */
+  border-radius: 0.75rem;  /* Bords arrondis */
   cursor: pointer;
-  font-size: 0.95rem;
-  border: none;
+  font-size: 1rem;  /* Police plus grande pour une meilleure lisibilité */
+  border: 1px solid #ccc;  /* Bordure subtile par défaut */
   outline: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  appearance: none;  /* Supprime les styles par défaut sur certains navigateurs (notamment Chrome) */
 }
 
 .navbar__select:hover {
-  background-color: #eaeaea;
+  background-color: #f7f7f7;  /* Fond légèrement gris au survol */
+  border-color: var(--color-accent);  /* Bordure colorée au survol */
+}
+
+.navbar__select:focus {
+  background-color: #eaeaea;  /* Fond gris clair quand le focus est actif */
+  border-color: var(--color-accent);  /* Bordure colorée quand le select est sélectionné */
+  box-shadow: 0 0 8px var(--color-black);  /* Ombre subtile pour le focus */
+}
+
+/* Styliser la valeur sélectionnée */
+.navbar__select option {
+  padding: 0.75rem;  /* Espacement dans les options */
+  font-size: 1rem;
+  background-color: #ffffff;  /* Fond des options */
+  color: var(--color-black);  /* Texte des options */
+}
+
+/* Modifier la couleur de fond et du texte de l'option sélectionnée */
+.navbar__select option:checked {
+  background-color: rgba(0, 0, 0, 0.151);  /* Fond rouge lorsque l'option est sélectionnée */
+  color: #ffffff;  /* Texte blanc sur fond rouge */
 }
 
 /* ===== PROFILE SECTION ===== */

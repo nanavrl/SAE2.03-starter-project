@@ -10,8 +10,8 @@ let DataMovie = {};
 //   return movies;
 // };
 
-DataMovie.requestMovies = async function () {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=readmovies");
+DataMovie.requestMovies = async function (age = 0) {
+  let answer = await fetch(HOST_URL + `/server/script.php?todo=readmovies&age=${age}`);
   let movies = await answer.json();
   return movies;
 };
@@ -29,5 +29,11 @@ DataMovie.requestMoviesByCategory = async function () {
   return categories;
 };
 
+
+DataMovie.requestMoviesByOneCategory = async function () {
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=readMoviesCategory&age=${age}");
+  let categories = await answer.json();
+  return categories;
+};
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

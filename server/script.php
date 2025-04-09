@@ -55,7 +55,8 @@ if ( isset($_REQUEST['todo']) ){
     // FILMS
 
     case 'readmovies':
-      $data = readMoviesController();
+      $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0;
+      $data = readMoviesController($age);
       break;
 
     case 'addMovie':
@@ -80,7 +81,11 @@ if ( isset($_REQUEST['todo']) ){
 
     case 'readProfile':
       $data = readControllerProfile();
-      break;
+    break;
+
+    case 'getMoviesByAge':
+      $data = readControllerMoviesByAge();
+    break;
 
       
     default: 

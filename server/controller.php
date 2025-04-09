@@ -20,11 +20,10 @@
  */
 require("model.php");
 
-function readMoviesController(){
-    $movies = getAllMovies();
-    return $movies;
+function readMoviesController($age) {
+  $movies = getAllMovies();
+  return getMoviesByAge($age);
 }
-
 
 function addMovieController(){
 
@@ -91,6 +90,30 @@ function addProfileController() {
 }
 
 function readControllerProfile(){
-  $profiles = readProfile();
+  if (!isset($_REQUEST['id'])) {
+    $profiles = readProfile(); 
+  }
+  else{
+    $id = $_REQUEST['id'];
+    $profiles = readOneProfile($id); // Appel de la fonction getProfile
+  }
+ 
   return $profiles;
 }
+
+
+/**
+ * Fonction de contrôle pour lire les films en fonction de l'âge.
+ * 
+ * @return array|false Les informations des films ou false en cas d'erreur.
+ */
+
+function readControllerMoviesByAge() {
+  $age = $_REQUEST['age'] ?? null;
+  if ($age === null || !is_numeric($age)) {
+      return false;
+  }
+
+  return getMoviesByAge((int)$age);
+}
+

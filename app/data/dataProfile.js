@@ -19,6 +19,14 @@ DataProfile.read = async function () {
 };
 
 
+DataProfile.readOne = async function (id) {
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfile&id=" + id);
+  
+  let res = await answer.json();
+  return res;
+};
+
+
 // On exporte la fonction DataProfile.read
 export { DataProfile };
 
