@@ -10,7 +10,7 @@ let DataMovie = {};
 //   return movies;
 // };
 
-DataMovie.requestMovies = async function (age = 0) {
+DataMovie.requestMovies = async function (age = 100) {
   let answer = await fetch(HOST_URL + `/server/script.php?todo=readMoviesCategory&age=${age}`);
   let movies = await answer.json();
   return movies;

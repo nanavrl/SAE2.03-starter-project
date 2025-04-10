@@ -92,19 +92,29 @@ function readControllerProfile(){
 }
 
 
-// function readMoviesByCategoryController() {
-//   $categories = getMoviesByCategory();
-//   return $categories ? $categories : false;
-// }
-
-// function readMoviesByCategoryController() {
-//   $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; // Récupère l'âge ou 0 par défaut
-//   $categories = getCategoryByAge($age); // Appelle la fonction du modèle avec l'âge
-//   return $categories ? $categories : false;
-// }
-
 function readMoviesByCategoryController() {
   $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; // Récupère l'âge ou 0 par défaut
   $categories = getMoviesByCategory($age); // Appelle la fonction du modèle avec l'âge
   return $categories ? $categories : false;
 }
+
+function modifyProfileController() {
+  
+  $id = intval($_POST['id']);
+  $name = $_POST['name'];
+  $avatar = $_POST['avatar'];
+  $min_age = $_POST['min_age'];
+
+  if (empty($id) || empty($name) || empty($avatar) || empty($min_age)) {
+     
+      return ["message" => "Tous les champs doivent être remplis."];
+  }
+
+  $result = modifyProfile($id, $name, $avatar, $min_age);
+
+  if ($result) {
+      return ["message" => "Profil modifié avec succès."];
+  } else {
+      return ["message" => "Erreur lors de la modification du profil."];
+  }
+} 

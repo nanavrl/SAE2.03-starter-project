@@ -90,18 +90,6 @@ function getMovieDetail($id) {
     }
 }
 
-// function getCategoryByAge($age) {
-//     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
-//     $sql = "SELECT Category.id, Category.name
-//             FROM Category
-//             INNER JOIN Movie ON Movie.id_category = Category.id
-//             WHERE Movie.min_age <= :age";
-//     $stmt = $cnx->prepare($sql);
-//     $stmt->bindParam(':age', $age, PDO::PARAM_INT);
-//     $stmt->execute();
-//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-//     return $res;
-// }
 
 function getMoviesByCategory($age) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
@@ -192,31 +180,21 @@ function readOneProfile($id) {
 }
 
 
+function modifyProfile($id, $name, $avatar, $min_age) {
 
-// function getMoviesByAge($age) {
-//     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-//     $sql = "SELECT id, name, image, min_age FROM Movie WHERE min_age <= :age";
-//     $stmt = $cnx->prepare($sql);
-//     $stmt->bindParam(':age', $age, PDO::PARAM_INT);
-//     $stmt->execute();
-//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-//     return $res;
-// }
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 
+    $sql = "UPDATE Profile 
+            SET name = :name, avatar = :avatar, min_age = :min_age 
+            WHERE id = :id";
 
-// function getCategoryByAge($age) {
-//     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
-//     $sql = "SELECT Category.id, Category.name
-//             FROM Category
-//             INNER JOIN Movie ON Movie.id_category = Category.id
-//             WHERE Movie.min_age <= :age";
-//     $stmt = $cnx->prepare($sql);
-//     $stmt->bindParam(':age', $age, PDO::PARAM_INT);
-//     $stmt->execute();
-//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-//     return $res;
-// }
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':avatar', $avatar, PDO::PARAM_STR);
+    $stmt->bindParam(':min_age', $min_age, PDO::PARAM_STR);
 
-
-
-
+    return $stmt->execute();
+}

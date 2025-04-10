@@ -57,8 +57,13 @@
       };
 
       C.getCategories = async function () {
-        let age = C.profile ? C.profile.min_age : 0; // Récupère l'âge du profil ou 0 par défaut
-        let categories = await DataMovie.requestMovies(age);
+        if (!C.profile) {
+          document.querySelector("#categories").innerHTML =
+            "<p>Aucun profil sélectionné.</p>";
+          return;
+        }
+       
+        let categories = await DataMovie.requestMovies(99);
         if (!Array.isArray(categories) || categories.length === 0) {
           document.querySelector("#categories").innerHTML =
             "<p>Aucune catégorie disponible pour votre tranche d'âge.</p>";
@@ -115,16 +120,6 @@
         for (let category of data) {
           formattedContent += MovieCategory.format(category);
         }
-        content.innerHTML = formattedContent;
-      };
-
-      V.renderCategories = function (categories) {
-        let content = document.querySelector("#category");
-        let formattedContent = "<ul>";
-        for (let category of categories) {
-          formattedContent += `<li>${category.name}</li>`;
-        }
-        formattedContent += "</ul>";
         content.innerHTML = formattedContent;
       };
 

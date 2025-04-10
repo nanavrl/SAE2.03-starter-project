@@ -76,16 +76,17 @@ if ( isset($_REQUEST['todo']) ){
     case 'readProfile':
       $data = readControllerProfile();
     break;
-    
+
     // CATEGORIES
 
     case 'readMoviesCategory': 
       $data = readMoviesByCategoryController();
     break;
 
-    
+    case 'modifyProfile':
+      $data = modifyProfileController();
+      break;
 
-      
     default: 
       echo json_encode('[error] Unknown todo value');
       http_response_code(400); 

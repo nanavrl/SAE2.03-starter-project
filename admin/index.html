@@ -10,32 +10,25 @@
     <section id="log"></section>
     <section id="addMovie"></section>
     <section id="addProfile"></section>
+    <section id="ModifyProfile"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
-      
+
       import { MovieForm } from "./component/MovieForm/script.js";
       import { DataMovie } from "./data/dataMovie.js";
 
       import { ProfileForm } from "./component/ProfileForm/script.js";
       import { DataProfile } from "./data/dataProfile.js";
+      import { ModifyProfile } from "./component/ModifyProfile/script.js";
 
       window.C = {};
 
-  
       C.handlerAddMovie = async function () {
-        // Sélectionne l'élément possédant la classe `.addMenu__form`
-        // il s'agit de l'élément <form> du composant NewMenuForm
         let form = document.querySelector(".addFilm__form");
-        // Crée un objet FormData à partir du formulaire
         let fd = new FormData(form);
-        // Attend la réponse de la fonction `DataMenu.update(fd)`
-        console.log("fd", fd);
+
         let res = await DataMovie.add(fd);
-
-        // console.log("add effectué"); // vérif console
-
-        // Affiche le résultat de la mise à jour dans le journal
         V.renderLog(res);
       };
 
@@ -47,10 +40,42 @@
         V.renderLog(res);
       };
 
-      C.start = function () {
+      C.handlerProfileModify = async function () {
+        const form = document.querySelector(".modifyProfile__form");
+
+        if (!form) {
+          console.error("Form with class 'modifyProfile__form' not found.");
+          return;
+        }
+
+        const fd = new FormData(form);
+        const res = await DataProfile.modify(fd);
+        V.renderLog(res);
+      };
+
+      C.handlerProfileSelect = function () {
+        const select = document.querySelector("#profile-select");
+        const selectedOption = select.options[select.selectedIndex];
+
+        if (selectedOption) {
+          // Récupère les données du profil sélectionné
+          const profileName = selectedOption.dataset.name || "";
+          const profileAvatar = selectedOption.dataset.avatar || "";
+          const profileMinAge = selectedOption.dataset.age || "";
+
+          // Met à jour les champs du formulaire
+          document.querySelector("input[name='name']").value = profileName;
+          document.querySelector("input[name='avatar']").value = profileAvatar;
+          document.querySelector("input[name='min_age']").value = profileMinAge;
+        }
+      };
+
+      C.start = async function () {
         V.renderLog("Démarrage de l'application");
-        V.renderAddMovie("C.handlerAddMovie()")
+        V.renderAddMovie("C.handlerAddMovie()");
         V.renderAddProfile("C.handlerAddProfile()");
+        let profiles = await DataProfile.read();
+        V.renderModifyProfile(profiles);
       };
 
       window.V = {};
@@ -69,7 +94,11 @@
         let content = document.querySelector("#addProfile");
         let profiles = await DataProfile.getProfiles();
         content.innerHTML = ProfileForm.format(profiles, handler);
-     
+      };
+
+      V.renderModifyProfile = function (data) {
+        let content = document.querySelector("#ModifyProfile");
+        content.innerHTML = ModifyProfile.format(data);
       };
 
       C.start();
