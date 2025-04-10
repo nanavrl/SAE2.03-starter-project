@@ -44,6 +44,11 @@
         let dataProfile = await DataProfile.readOne(select.value);
         C.profile = dataProfile[0];
         C.getMovie(C.profile.min_age);
+
+        const profileImage = document.querySelector("#profile-image");
+        if (profileImage && C.profile.image) {
+         profileImage.src = `https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/${C.profile.image}`;
+        };
       };
 
       C.getMovie = async function (age) {
