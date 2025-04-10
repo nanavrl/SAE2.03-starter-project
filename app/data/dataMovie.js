@@ -11,7 +11,7 @@ let DataMovie = {};
 // };
 
 DataMovie.requestMovies = async function (age = 0) {
-  let answer = await fetch(HOST_URL + `/server/script.php?todo=readmovies&age=${age}`);
+  let answer = await fetch(HOST_URL + `/server/script.php?todo=readMoviesCategory&age=${age}`);
   let movies = await answer.json();
   return movies;
 };
@@ -23,17 +23,12 @@ DataMovie.requestMovieDetails = async function (movieId) {
   return movieDetails;
 };
 
-DataMovie.requestMoviesByCategory = async function () {
+DataMovie.requestCategories = async function () {
   let answer = await fetch(HOST_URL + "/server/script.php?todo=readMoviesCategory");
   let categories = await answer.json();
   return categories;
 };
 
 
-DataMovie.requestMoviesByOneCategory = async function () {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=readMoviesCategory&age=${age}");
-  let categories = await answer.json();
-  return categories;
-};
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

@@ -20,13 +20,7 @@
  */
 require("model.php");
 
-function readMoviesController($age) {
-  $movies = getAllMovies();
-  return getMoviesByAge($age);
-}
-
 function addMovieController(){
-
     $titre = $_REQUEST['titre'] ?? null;
     $realisateur = $_REQUEST['realisateur'] ?? null;
     $annee = $_REQUEST['annee'] ?? null;
@@ -68,10 +62,6 @@ function readMovieDetailController() {
   }
 }
 
-function readMoviesByCategoryController() {
-  $categories = getMoviesByCategory();
-  return $categories ? $categories : false;
-}
 
 function addProfileController() {
   $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : null; // Récupère l'ID s'il est fourni
@@ -102,18 +92,19 @@ function readControllerProfile(){
 }
 
 
-/**
- * Fonction de contrôle pour lire les films en fonction de l'âge.
- * 
- * @return array|false Les informations des films ou false en cas d'erreur.
- */
+// function readMoviesByCategoryController() {
+//   $categories = getMoviesByCategory();
+//   return $categories ? $categories : false;
+// }
 
-function readControllerMoviesByAge() {
-  $age = $_REQUEST['age'] ?? null;
-  if ($age === null || !is_numeric($age)) {
-      return false;
-  }
+// function readMoviesByCategoryController() {
+//   $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; // Récupère l'âge ou 0 par défaut
+//   $categories = getCategoryByAge($age); // Appelle la fonction du modèle avec l'âge
+//   return $categories ? $categories : false;
+// }
 
-  return getMoviesByAge((int)$age);
+function readMoviesByCategoryController() {
+  $age = isset($_REQUEST['age']) ? intval($_REQUEST['age']) : 0; // Récupère l'âge ou 0 par défaut
+  $categories = getMoviesByCategory($age); // Appelle la fonction du modèle avec l'âge
+  return $categories ? $categories : false;
 }
-

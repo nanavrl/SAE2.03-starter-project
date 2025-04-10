@@ -14,14 +14,13 @@
     <section class="infos" id="infos"></section>
     <section class="category" id="category"></section>
 
+
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
       import { Movie } from "./component/Movie/script.js";
       import { DataMovie } from "./data/dataMovie.js";
       import { MovieDetail } from "./component/movieDetail/script.js";
-
       import { MovieCategory } from "./component/movieCategory/script.js";
-
       import { DataProfile } from "./data/dataProfile.js";
 
       // Controleur
@@ -29,7 +28,7 @@
       // Une fois l'application terminée, on pourrait remettre let C.
       window.C = {};
 
-      C.profile = null; // Variable pour stocker le profil sélectionné      
+      C.profile = null; // Variable pour stocker le profil sélectionné
 
       C.handlerAbout = function () {
         C.getMovie();
@@ -44,36 +43,38 @@
         const select = document.querySelector("#profile-select");
         let dataProfile = await DataProfile.readOne(select.value);
         C.profile = dataProfile[0];
-      //  C.getMovie(C.profile.min_age);
+        C.getMovie(C.profile.min_age);
       };
 
       C.getMovie = async function (age) {
-        try {
-          let movies = await DataMovie.requestMovies(age);
-          if (!Array.isArray(movies) || movies.length === 0) {
-            document.querySelector("#content").innerHTML =
-              "<p>Aucun film disponible pour votre tranche d'âge.</p>";
-            return;
-          }
-          V.renderMoviesCategory(movies);
-        } catch (error) {
-          console.error(
-            "C.getMovie: Erreur lors de la récupération des films",
-            error
-          );
+        let movies = await DataMovie.requestMovies(age);
+        if (!Array.isArray(movies) || movies.length === 0) {
+          document.querySelector("#content").innerHTML =
+            "<p>Aucun film disponible pour votre tranche d'âge.</p>";
+          return;
         }
-        
+        V.renderMoviesCategory(movies);
+      };
+
+      C.getCategories = async function () {
+        let age = C.profile ? C.profile.min_age : 0; // Récupère l'âge du profil ou 0 par défaut
+        let categories = await DataMovie.requestMovies(age);
+        if (!Array.isArray(categories) || categories.length === 0) {
+          document.querySelector("#categories").innerHTML =
+            "<p>Aucune catégorie disponible pour votre tranche d'âge.</p>";
+          return;
+        }
+        V.renderMoviesCategory(categories); // Affiche les catégories
       };
 
       C.start = async function () {
         let profiles = await DataProfile.read();
         V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles);
-        let moviesByCat = await DataMovie.requestMoviesByCategory();
-        V.renderMoviesCategory(moviesByCat);
-        //C.getMovie();
+        // let moviesByCat = await DataMovie.requestMoviesByCategory();
+        // V.renderMoviesCategory(moviesByCat);
+        C.getMovie();
+        C.getCategories();
       };
-
-      
 
       // Vue (contient tout ce qui est relatif à l'affichage)
       window.V = {};
@@ -109,15 +110,21 @@
       };
 
       V.renderMoviesCategory = function (data) {
-        if (!Array.isArray(data)) {
-          console.error("V.renderMoviesCategory: data is not iterable", data);
-          return;
-        }
         let content = document.querySelector("#content");
         let formattedContent = "";
         for (let category of data) {
           formattedContent += MovieCategory.format(category);
         }
+        content.innerHTML = formattedContent;
+      };
+
+      V.renderCategories = function (categories) {
+        let content = document.querySelector("#category");
+        let formattedContent = "<ul>";
+        for (let category of categories) {
+          formattedContent += `<li>${category.name}</li>`;
+        }
+        formattedContent += "</ul>";
         content.innerHTML = formattedContent;
       };
 

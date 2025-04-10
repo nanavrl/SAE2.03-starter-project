@@ -21,10 +21,12 @@ define("DBPWD", "viroulaud8");
 function getAllMovies(){
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
     $sql = "select id, name, image from Movie";
+    
     $stmt = $cnx->prepare($sql);
     $stmt->execute();
+
     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res; // Retourne les résultats
+    return $res; 
 }
 
 function addMovie($titre, $real, $annee, $duree, $des, $cat, $img, $url, $age) {
@@ -88,47 +90,53 @@ function getMovieDetail($id) {
     }
 }
 
-function getMoviesByCategory() {
-    try {
-        $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+// function getCategoryByAge($age) {
+//     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+//     $sql = "SELECT Category.id, Category.name
+//             FROM Category
+//             INNER JOIN Movie ON Movie.id_category = Category.id
+//             WHERE Movie.min_age <= :age";
+//     $stmt = $cnx->prepare($sql);
+//     $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+//     $stmt->execute();
+//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+//     return $res;
+// }
 
-        // Requête SQL pour récupérer les films groupés par catégorie
-        $sql = "SELECT 
-                    Category.id AS category_id, 
-                    Category.name AS category_name, 
-                    Movie.id AS movie_id, 
-                    Movie.name AS movie_name, 
-                    Movie.image AS movie_image
-                FROM Movie
-                JOIN Category ON Movie.id_category = Category.id
-                ORDER BY Category.name, Movie.name";
+function getMoviesByCategory($age) {
+    $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 
-        $stmt = $cnx->query($sql);
-        $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+    // Requête SQL pour récupérer les films groupés par catégorie
+    $sql = "SELECT Category.id AS category_id, Category.name AS category_name, 
+                   Movie.id AS movie_id, Movie.name AS movie_name, Movie.image AS movie_image
+            FROM Movie 
+            INNER JOIN Category ON Movie.id_category = Category.id
+            WHERE Movie.min_age <= :age";
 
-        // Regrouper les films par catégorie
-        $categories = [];
-        foreach ($rows as $row) {
-            if (!isset($categories[$row->category_id])) {
-                $categories[$row->category_id] = [
-                    "name" => $row->category_name,
-                    "movies" => []
-                ];
-            }
-            $categories[$row->category_id]["movies"][] = [
-                "id" => $row->movie_id,
-                "name" => $row->movie_name,
-                "image" => $row->movie_image
+    $stmt = $cnx->prepare($sql);
+    $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    // Regrouper les films par catégorie
+    $categories = [];
+    foreach ($rows as $row) {
+        if (!isset($categories[$row->category_id])) {
+            $categories[$row->category_id] = [
+                "name" => $row->category_name,
+                "movies" => []
             ];
         }
-
-        return array_values($categories); // Retourne un tableau indexé
-    } catch (Exception $e) {
-        error_log("Erreur SQL : " . $e->getMessage());
-        return false;
+        $categories[$row->category_id]["movies"][] = [
+            "id" => $row->movie_id,
+            "name" => $row->movie_name,
+            "image" => $row->movie_image
+        ];
     }
+
+    return array_values($categories); // Retourne un tableau indexé
 }
 
 function addProfile($id, $name, $avatar, $min_age) {
@@ -183,21 +191,32 @@ function readOneProfile($id) {
     return $res; // Retourne les résultats
 }
 
-/**
- * Fonction pour récupérer les films en fonction de l'âge
- * 
- * @param int $age L'âge de l'utilisateur
- * @return array Un tableau d'objets contenant les films accessibles à cet âge
- */
 
 
-function getMoviesByAge($age) {
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
-    $sql = "SELECT id, name, image, min_age FROM Movie WHERE min_age <= :age";
-    $stmt = $cnx->prepare($sql);
-    $stmt->bindParam(':age', $age, PDO::PARAM_INT);
-    $stmt->execute();
-    $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-    return $res;
-}
+// function getMoviesByAge($age) {
+//     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
+//     $sql = "SELECT id, name, image, min_age FROM Movie WHERE min_age <= :age";
+//     $stmt = $cnx->prepare($sql);
+//     $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+//     $stmt->execute();
+//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+//     return $res;
+// }
+
+
+// function getCategoryByAge($age) {
+//     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
+//     $sql = "SELECT Category.id, Category.name
+//             FROM Category
+//             INNER JOIN Movie ON Movie.id_category = Category.id
+//             WHERE Movie.min_age <= :age";
+//     $stmt = $cnx->prepare($sql);
+//     $stmt->bindParam(':age', $age, PDO::PARAM_INT);
+//     $stmt->execute();
+//     $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+//     return $res;
+// }
+
+
+
 

@@ -4,12 +4,6 @@ let HOST_URL = "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project";
 
 let DataProfile = {};
 
-// DataProfile.read = async function () {
-//   // Récupération des films
-//   let answer = await fetch(HOST_URL + "server/script.php?todo=getProfile");
-//   let Profiles = await answer.json();
-//   return Profiles;
-// };
 
 DataProfile.read = async function () {
   let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfile");
@@ -25,6 +19,7 @@ DataProfile.readOne = async function (id) {
   let res = await answer.json();
   return res;
 };
+
 
 
 // On exporte la fonction DataProfile.read
