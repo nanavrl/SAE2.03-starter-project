@@ -1,4 +1,4 @@
-.addProfile {
+.updateProfile {
   max-width: 600px;
   margin: 3rem auto;
   background: #f5f5f5;
@@ -9,7 +9,7 @@
   border: 1px solid #ccc;
 }
 
-.addProfile__title {
+.updateProfile__title {
   margin-bottom: 1.5rem;
   text-align: center;
   color: #111;
@@ -17,13 +17,15 @@
   font-weight: 600;
 }
 
-.addProfile__form {
+.updateProfile__form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.addProfile__form input {
+.updateProfile__form select,
+.updateProfile__form input[type="text"],
+.updateProfile__form input[type="number"] {
   padding: 1rem;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -33,22 +35,26 @@
   color: #333;
 }
 
-.addProfile__form input:focus {
+.updateProfile__form select:focus,
+.updateProfile__form input:focus {
   border-color: var(--color-black);
   box-shadow: 0 0 0 3px var(--color-black);
   outline: none;
 }
 
-.addProfile__form input[type="button"] {
+.updateProfile__button {
   background-color: var(--color-black);
   color: #fff;
   font-weight: bold;
   cursor: pointer;
   border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
   transition: background-color 0.3s ease;
+  font-size: 1rem;
 }
 
-.addProfile__form input[type="button"]:hover {
+.updateProfile__button:hover {
   background-color: rgb(160, 111, 209);
   color: white;
 }

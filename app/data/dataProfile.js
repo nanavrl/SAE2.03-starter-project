@@ -14,10 +14,13 @@ DataProfile.read = async function () {
 
 
 DataProfile.readOne = async function (id) {
-  let answer = await fetch(HOST_URL + "/server/script.php?todo=readProfile&id=" + id);
-  
-  let res = await answer.json();
-  return res;
+  const response = await fetch(`/server/script.php?todo=readProfile&id=${id}`);
+  if (!response.ok) {
+    console.error("Erreur lors de la récupération du profil :", response.statusText);
+    return null;
+  }
+  const profile = await response.json();
+  return profile;
 };
 
 

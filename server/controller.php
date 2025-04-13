@@ -98,23 +98,29 @@ function readMoviesByCategoryController() {
   return $categories ? $categories : false;
 }
 
-function modifyProfileController() {
-  
-  $id = intval($_POST['id']);
-  $name = $_POST['name'];
-  $avatar = $_POST['avatar'];
-  $min_age = $_POST['min_age'];
+function readProfileController() {
+  if (!isset($_REQUEST['id'])) {
+    $profiles = readProfile(); 
+  }
+  else{
+    $id = $_REQUEST['id'];
+    $profiles = readOneProfile($id); 
+  }
+ 
+  return $profiles;
+}
 
-  if (empty($id) || empty($name) || empty($avatar) || empty($min_age)) {
-     
-      return ["message" => "Tous les champs doivent être remplis."];
+
+function updateProfileController() {
+  $id = $_REQUEST['id'] ?? null;
+  $name = $_REQUEST['name'] ?? null;
+  $avatar = $_REQUEST['avatar'] ?? null;
+  $min_age = $_REQUEST['min_age'] ?? null;
+
+  if (empty($id) || empty($name) || empty($min_age)) {
+      return "Erreur : Tous les champs obligatoires doivent être remplis.";
   }
 
-  $result = modifyProfile($id, $name, $avatar, $min_age);
-
-  if ($result) {
-      return ["message" => "Profil modifié avec succès."];
-  } else {
-      return ["message" => "Erreur lors de la modification du profil."];
-  }
-} 
+  $ok = updateProfile($name, $avatar, $min_age, $id);
+  return $ok ? "Le profil a été modifié avec succès." : "Erreur lors de la modification du profil.";
+}

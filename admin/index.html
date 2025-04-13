@@ -8,9 +8,10 @@
   </head>
   <body>
     <section id="log"></section>
+    <section id="content"></section>
     <section id="addMovie"></section>
     <section id="addProfile"></section>
-    <section id="ModifyProfile"></section>
+    <section id="updateProfile"></section>
 
     <script type="module">
       import { Log } from "./component/Log/script.js";
@@ -20,7 +21,7 @@
 
       import { ProfileForm } from "./component/ProfileForm/script.js";
       import { DataProfile } from "./data/dataProfile.js";
-      import { ModifyProfile } from "./component/ModifyProfile/script.js";
+      import { updateProfileForm } from "./component/UpdateProfileForm/script.js";
 
       window.C = {};
 
@@ -40,43 +41,39 @@
         V.renderLog(res);
       };
 
-      C.handlerProfileModify = async function () {
-        const form = document.querySelector(".modifyProfile__form");
+      C.handlerUpdateProfile = async function () {
+        let form = document.querySelector(".updateProfile__form");
+        let fd = new FormData(form);
+        let res = await DataProfile.update(fd);
 
-        if (!form) {
-          console.error("Form with class 'modifyProfile__form' not found.");
-          return;
+        if (res.includes("succès")) { 
+          form.reset(); 
+          location.reload();
         }
-
-        const fd = new FormData(form);
-        const res = await DataProfile.modify(fd);
         V.renderLog(res);
       };
 
-      C.handlerProfileSelect = function () {
-        const select = document.querySelector("#profile-select");
-        const selectedOption = select.options[select.selectedIndex];
-
-        if (selectedOption) {
-          // Récupère les données du profil sélectionné
-          const profileName = selectedOption.dataset.name || "";
-          const profileAvatar = selectedOption.dataset.avatar || "";
-          const profileMinAge = selectedOption.dataset.age || "";
-
-          // Met à jour les champs du formulaire
-          document.querySelector("input[name='name']").value = profileName;
-          document.querySelector("input[name='avatar']").value = profileAvatar;
-          document.querySelector("input[name='min_age']").value = profileMinAge;
+      C.loadProfiles = async function() {
+        let profiles = await DataProfile.readProfile();
+        let optionsHtml = "";
+        for (let i = 0; i < profiles.length; i++) {
+          let profile = profiles[i];
+          optionsHtml += `<option value="${profile.id}">${profile.name}</option>`;
+        }
+        let select = document.querySelector('#profile-select');
+        if (select) {
+          select.innerHTML = optionsHtml;
         }
       };
 
-      C.start = async function () {
+      C.start = function () {
         V.renderLog("Démarrage de l'application");
-        V.renderAddMovie("C.handlerAddMovie()");
+        V.renderForm("C.handlerAddMovie()");
         V.renderAddProfile("C.handlerAddProfile()");
-        let profiles = await DataProfile.read();
-        V.renderModifyProfile(profiles);
+        V.renderUpdateProfileForm("C.handlerUpdateProfile()");
+        C.loadProfiles();
       };
+
 
       window.V = {};
 
@@ -92,13 +89,18 @@
 
       V.renderAddProfile = async function (handler) {
         let content = document.querySelector("#addProfile");
-        let profiles = await DataProfile.getProfiles();
+        let profiles = await DataProfile.readProfile();
         content.innerHTML = ProfileForm.format(profiles, handler);
       };
 
-      V.renderModifyProfile = function (data) {
-        let content = document.querySelector("#ModifyProfile");
-        content.innerHTML = ModifyProfile.format(data);
+      V.renderForm = function (handler) {
+        let content = document.querySelector("#content");
+        content.innerHTML = MovieForm.format(handler);
+      };
+
+      V.renderUpdateProfileForm = function(handler) {
+      let content = document.querySelector("#updateProfile");
+      content.innerHTML = updateProfileForm.format(handler);  
       };
 
       C.start();

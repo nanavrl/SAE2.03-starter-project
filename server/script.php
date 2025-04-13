@@ -1,27 +1,5 @@
 <?php
-/** ARCHITECTURE PHP SERVEUR : Rôle du fichier script.php
- * 
- * Ce fichier est celui à qui on adresse toutes les requêtes HTTP.
- * Pour être valide, on décide que chaque requête doit contenir un paramètre 'todo'.
- * C'est un choix d'implémentation, on aurait pu choisir un autre nom de paramètre.
- * L'interprétation de la requête se fait en fonction de la valeur du paramètre 'todo'.
- * Selon cette valeur, on fait appelle à la fonction de contrôleur (voir controller.php)
- * appropriée pour traiter la requête HTTP et produire la réponse HTTP attendue..
- * 
- * Pourquoi faire comme ça ?
- * 
- *  En ajoutant un paramètre 'todo' dans la requête, on a un seul paramètre à regarder pour déterminer l'action à effectuer.
- *  Sinon il faudrait toujours analyser tous les paramètres de la requête pour déterminer l'action à effectuer.
- *  Et dans une véritable application il peut y avoir énormément de paramètres, ce qui deviendrait compliqué et illisible.
- * 
- */
 
-/**
- * Inclusion du fichier controller.php.
- * 
- * Il contient les fonctions nécessaires pour traiter chaque type de requête
- * et définir la réponnse à renvoyer au client.
- */
 require("controller.php");
 
 /**
@@ -83,9 +61,9 @@ if ( isset($_REQUEST['todo']) ){
       $data = readMoviesByCategoryController();
     break;
 
-    case 'modifyProfile':
-      $data = modifyProfileController();
-      break;
+    case 'updateProfile':
+      $data = updateProfileController();
+    break;
 
     default: 
       echo json_encode('[error] Unknown todo value');
