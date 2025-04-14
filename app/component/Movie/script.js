@@ -11,6 +11,8 @@ Movie.format = function (movies) {
     movieHtml = movieHtml.replace("{{titre}}", movie.name);
     movieHtml = movieHtml.replace("{{image}}", movie.image);
     movieHtml = movieHtml.replace("{{onclick}}", `C.handlerDetail(${movie.id})`);
+    movieHtml = movieHtml.replace("{{handlerFavoris}}", `C.handlerFavoris(${category.id})`);
+
     html += movieHtml;
   }
   return html;

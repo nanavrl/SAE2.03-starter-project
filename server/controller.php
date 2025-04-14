@@ -20,6 +20,8 @@
  */
 require("model.php");
 
+// AJOUTER UN FILM
+
 function addMovieController(){
     $titre = $_REQUEST['titre'] ?? null;
     $realisateur = $_REQUEST['realisateur'] ?? null;
@@ -62,6 +64,7 @@ function readMovieDetailController() {
   }
 }
 
+// AJOUTER UN NOUVEAU PROFIL
 
 function addProfileController() {
   $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : null; // Récupère l'ID s'il est fourni
@@ -98,6 +101,8 @@ function readMoviesByCategoryController() {
   return $categories ? $categories : false;
 }
 
+// MODIFICATION DU PROFIL
+
 function readProfileController() {
   if (!isset($_REQUEST['id'])) {
     $profiles = readProfile(); 
@@ -123,4 +128,28 @@ function updateProfileController() {
 
   $ok = updateProfile($name, $avatar, $min_age, $id);
   return $ok ? "Le profil a été modifié avec succès." : "Erreur lors de la modification du profil.";
+}
+
+// GERER LES FAVORIS
+
+function addFavorisController() {
+  $id_profil = $_REQUEST['id_profil'] ?? null;
+  $id_movie = $_REQUEST['id_movie'] ?? null;
+
+  if (isFavoris($id_movie, $id_profil)) {
+      return ["error" => "Ce film est déjà dans les favoris."];
+  }
+
+  $result = addFavoris($id_movie, $id_profil);
+  if ($result) {
+      return ["success" => "Film ajouté aux favoris."];
+  } else {
+      return ["error" => "Impossible d'ajouter le film aux favoris."];
+  }
+}
+
+function readFavorisController() {
+$id_profil = $_REQUEST['id_profil'] ?? null;
+$favoris = getFavoris($id_profil);
+return $favoris ? $favoris : [];
 }

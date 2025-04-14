@@ -13,6 +13,7 @@
     <section class="cards" id="content"></section>
     <section class="infos" id="infos"></section>
     <section class="category" id="category"></section>
+    <div id="categories"></div>
 
 
     <script type="module">
@@ -49,6 +50,48 @@
         if (profileImage && C.profile.image) {
          profileImage.src = `https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/${C.profile.image}`;
         };
+      };
+
+      C.handlerFavorisList = async function () {
+        // Récupérer l'ID du profil actif
+        const profileSelect = document.querySelector("#profile-select");
+        const profileId = profileSelect ? profileSelect.value : null;
+
+        if (!profileId) {
+          alert("Veuillez sélectionner un profil pour voir les favoris.");
+          return;
+        }
+
+        // Récupérer les films favoris pour le profil actif
+        let favoris = await DataMovie.getFavoris(profileId);
+
+        if (!favoris || favoris.length === 0) {
+          document.querySelector("#content").innerHTML =
+            "<p>Aucun film ajouté aux favoris.</p>";
+        } else {
+          // Afficher les films favoris
+          V.renderMovie(favoris);
+        }
+      };
+
+      C.handlerFavoris = async function (id) {
+        console.log(`C.handlerFavoris appelé avec movieId=${id}`);
+        const profileSelect = document.querySelector("#profile-select");
+        const profileId = profileSelect ? profileSelect.value : null;
+
+        if (!profileId) {
+          alert(
+            "Veuillez sélectionner un profil avant d'ajouter un film aux favoris."
+          );
+          return;
+        }
+
+        let res = await DataMovie.addFavoris(id, profileId);
+        console.log("Réponse du serveur :", res);
+
+        if (res === 1) {
+          alert("Le film a été ajouté à vos favoris !");
+        }
       };
 
       C.getMovie = async function (age) {
