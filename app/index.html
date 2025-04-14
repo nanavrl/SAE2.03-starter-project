@@ -15,7 +15,6 @@
     <section class="category" id="category"></section>
     <div id="categories"></div>
 
-
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
       import { Movie } from "./component/Movie/script.js";
@@ -47,9 +46,10 @@
         C.getMovie(C.profile.min_age);
 
         const profileImage = document.querySelector("#profile-image");
-        if (profileImage && C.profile.image) {
-         profileImage.src = `https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/${C.profile.image}`;
-        };
+        
+        if (profileImage && C.profile.avatar) {
+          profileImage.src = `../server/images/${C.profile.avatar}`;
+        }
       };
 
       C.handlerFavorisList = async function () {
@@ -110,7 +110,7 @@
             "<p>Aucun profil sélectionné.</p>";
           return;
         }
-       
+
         let categories = await DataMovie.requestMovies(99);
         if (!Array.isArray(categories) || categories.length === 0) {
           document.querySelector("#categories").innerHTML =

@@ -15,7 +15,9 @@ NavBar.format = function (hAbout, hShowMovies, profiles) {
     options += `<option label= "${p.name}" value= "${p.id}" kdata-img="${p.avatar}" data-dob="${p.min_age}">${p.name}</option>`;
   }
 
-  let image = profiles[0]?.avatar || "";
+  let image = profiles[0]?.avatar
+  ? `../server/images/${profiles[0].avatar}`
+  : '';
 
   html = html.replace("{{options}}", options);
   html = html.replace("{{image}}", image);
