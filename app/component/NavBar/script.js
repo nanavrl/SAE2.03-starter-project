@@ -7,9 +7,9 @@ NavBar.format = function (hAbout, hShowMovies, profiles) {
   let html = template;
   html = html.replace("{{hAbout}}", hAbout);
   html = html.replace("{{hShowMovies}}", hShowMovies);
-  html = html.replace("{{hFavoris}}", "C.handlerFavorisList()");
 
-  let options = `<option value="">Choisir un profil</option>`; // Option par défaut
+
+  let options = `<option value="default">Choisir un profil</option>`; // Option par défaut
   for (let i = 0; i < profiles.length; i++) {
     let p = profiles[i];
     options += `<option label= "${p.name}" value= "${p.id}" kdata-img="${p.avatar}" data-dob="${p.min_age}">${p.name}</option>`;

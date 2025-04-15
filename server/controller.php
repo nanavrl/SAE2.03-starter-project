@@ -132,6 +132,7 @@ function updateProfileController() {
 
 // GERER LES FAVORIS
 
+
 function addFavorisController() {
   $id_profil = $_REQUEST['id_profil'] ?? null;
   $id_movie = $_REQUEST['id_movie'] ?? null;
@@ -140,7 +141,7 @@ function addFavorisController() {
       return ["error" => "Ce film est déjà dans les favoris."];
   }
 
-  $result = addFavoris($id_movie, $id_profil);
+  $result = addFavoris($id_profil, $id_movie);
   if ($result) {
       return ["success" => "Film ajouté aux favoris."];
   } else {
@@ -152,4 +153,15 @@ function readFavorisController() {
 $id_profil = $_REQUEST['id_profil'] ?? null;
 $favoris = getFavoris($id_profil);
 return $favoris ? $favoris : [];
+}
+
+function removeFavorisController() {
+$id_profil = $_REQUEST['id_profil'] ?? null;
+$id_movie = $_REQUEST['id_movie'] ?? null;
+$result = removeFavoris($id_movie, $id_profil);
+if ($result) {
+    return ["success" => "Film supprimé des favoris."];
+} else {
+    return ["error" => "Impossible de supprimer le film des favoris."];
+}
 }

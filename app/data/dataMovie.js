@@ -3,13 +3,6 @@ let HOST_URL = "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project";
 
 let DataMovie = {};
 
-// DataMovie.requestMovies = async function () {
-//   // Récupération des films
-//   let answer = await fetch(HOST_URL + "server/script.php?todo=getMovie");
-//   let movies = await answer.json();
-//   return movies;
-// };
-
 DataMovie.requestMovies = async function (age = 100) {
   let answer = await fetch(HOST_URL + `/server/script.php?todo=readMoviesCategory&age=${age}`);
   let movies = await answer.json();
@@ -29,22 +22,21 @@ DataMovie.requestCategories = async function () {
   return categories;
 };
 
-
-DataMovie.addFavoris = async function (id, profileId) {
-  console.log(`Requête envoyée : movieId=${id}, profileId=${profileId}`);
-  let response = await fetch(
-    `${HOST_URL}/server/script.php?todo=addFavoris&movieId=${id}&profileId=${profileId}`
+DataMovie.addFavoris = async function (id_profil, id_movie) {
+  let answer = await fetch(
+    HOST_URL + "/server/script.php?todo=addFavoris&id_profil=" + id_profil + "&id_movie=" + id_movie
   );
-  let data = await response.json();
-  console.log("Réponse du serveur :", data);
+
+  let data = await answer.json();
   return data;
 };
 
-DataMovie.getFavoris = async function (profileId) {
-  let response = await fetch(
-    `${HOST_URL}/server/script.php?todo=getFavoris&profileId=${profileId}`
+DataMovie.removeFavoris = async function (id_profil, id_movie) {
+  let answer = await fetch(
+    HOST_URL + "/server/script.php?todo=removeFavoris&id_profil=" + id_profil + "&id_movie=" + id_movie
   );
-  let data = await response.json();
+
+  let data = await answer.json();
   return data;
 };
 
