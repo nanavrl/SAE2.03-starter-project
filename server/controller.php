@@ -165,3 +165,18 @@ if ($result) {
     return ["error" => "Impossible de supprimer le film des favoris."];
 }
 }
+
+
+function readMoviesRecommendedController() {
+  // Appel à la fonction qui récupère les films mis en avant
+  $movies = readMoviesRecommended();
+  
+  // Si aucun film n'est trouvé, on log l'erreur
+  if (!$movies) {
+      error_log("Aucun film mis en avant trouvé.");
+      return false;
+  }
+  
+  // Retourner les films mis en avant
+  return $movies;
+}

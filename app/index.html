@@ -9,11 +9,12 @@
 
   <body>
     <header id="header"></header>
-
+    <section id="featured-movies"></section>
     <section class="cards" id="content"></section>
     <section class="infos" id="infos"></section>
     <section class="category" id="category"></section>
-    <div id="categories"></div>
+    <section id="categories"></section>
+    
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
@@ -23,6 +24,7 @@
       import { MovieCategory } from "./component/movieCategory/script.js";
       import { DataProfile } from "./data/dataProfile.js";
       import { Favoris } from "./component/Favoris/script.js";
+      import { Mis_en_avant } from "./component/Mis_en_avant/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -109,8 +111,7 @@
 
       C.getCategories = async function () {
         if (!C.profile) {
-          document.querySelector("#categories").innerHTML =
-            "";
+          document.querySelector("#categories").innerHTML = "";
           return;
         }
 
@@ -197,14 +198,26 @@
         content.innerHTML = Favoris.format(favoris);
       };
 
+      C.getFeaturedMovies = async function () {
+        let featuredMovies = await DataMovie.readMoviesRecommended();
+
+        let content = document.querySelector("#featured-movies");
+
+        if (!featuredMovies || featuredMovies.length === 0) {
+          content.innerHTML = "<p>Aucun film mis en avant pour le moment.</p>";
+        } else {
+          content.innerHTML = Mis_en_avant.format(featuredMovies);
+        }
+      };
 
       C.start = async function () {
         let profiles = await DataProfile.read();
-        V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles );
+        V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles);
         // let moviesByCat = await DataMovie.requestMoviesByCategory();
         // V.renderMoviesCategory(moviesByCat);
         C.getMovie();
         C.getCategories();
+        C.getFeaturedMovies();
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)

@@ -83,6 +83,10 @@ if ( isset($_REQUEST['todo']) ){
       $data = updateProfileController();
     break;
 
+    case 'readMoviesRecommended':
+      $data = readMoviesRecommendedController();
+      break;
+
     
     default: 
       echo json_encode('[error] Unknown todo value');

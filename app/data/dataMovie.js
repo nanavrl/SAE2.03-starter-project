@@ -41,5 +41,17 @@ DataMovie.removeFavoris = async function (id_profil, id_movie) {
 };
 
 
+DataMovie.readMoviesRecommended = async function () {
+  let response = await fetch(
+    `${HOST_URL}/server/script.php?todo=readMoviesRecommended`
+  );
+
+  // Conversion de la réponse en JSON
+  let data = await response.json();
+
+  console.log("Réponse du serveur :", data);
+  return data;
+};
+
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };
