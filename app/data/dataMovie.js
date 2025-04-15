@@ -40,5 +40,6 @@ DataMovie.removeFavoris = async function (id_profil, id_movie) {
   return data;
 };
 
+
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };

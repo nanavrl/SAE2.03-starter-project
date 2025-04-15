@@ -23,6 +23,7 @@ DataProfile.readOne = async function (id) {
   return profile;
 };
 
+
 // On exporte la fonction DataProfile.read
 export { DataProfile };
 

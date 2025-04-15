@@ -201,11 +201,12 @@ function updateProfile($name, $avatar, $min_age, $id) {
     return $res; 
 }
 
+
 function addFavoris($id_movie, $id_profil){
 
     $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
 
-    $sql = "INSERT INTO Favorites  
+    $sql = "INSERT INTO Favorites 
     (id_movie, id_profil) 
     VALUES (:id_movie, :id_profil);";
 
@@ -224,9 +225,9 @@ function getFavoris($id_profil) {
   $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
   $sql = "SELECT Movie.id, Movie.name, Movie.image 
-          FROM Favorites  
-          INNER JOIN Movie ON Favoris.id_movie = Movie.id 
-          WHERE Favoris.id_profil = :id_profil";
+          FROM Favorites 
+          INNER JOIN Movie ON Favorites.id_movie = Movie.id 
+          WHERE Favorites.id_profil = :id_profil";
 
   $stmt = $cnx->prepare($sql);
   $stmt->bindParam(':id_profil', $id_profil, PDO::PARAM_INT);
@@ -238,7 +239,7 @@ function getFavoris($id_profil) {
 function isFavoris($id_movie, $id_profil) {
     try {
         $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
-        $sql = "SELECT COUNT(*) FROM Favorites  WHERE id_movie = :id_movie AND id_profil = :id_profil";
+        $sql = "SELECT COUNT(*) FROM Favorites WHERE id_movie = :id_movie AND id_profil = :id_profil";
         $stmt = $cnx->prepare($sql);
         $stmt->bindParam(':id_movie', $id_movie, PDO::PARAM_INT);
         $stmt->bindParam(':id_profil', $id_profil, PDO::PARAM_INT);
@@ -254,7 +255,7 @@ function isFavoris($id_movie, $id_profil) {
 function removeFavoris($id_movie, $id_profil) {
     $cnx = new PDO("mysql:host=" . HOST . ";dbname=" . DBNAME, DBLOGIN, DBPWD);
 
-    $sql = "DELETE FROM Favorites  WHERE id_movie = :id_movie AND id_profil = :id_profil";
+    $sql = "DELETE FROM Favorites WHERE id_movie = :id_movie AND id_profil = :id_profil";
     $stmt = $cnx->prepare($sql);
     $stmt->bindParam(':id_movie', $id_movie, PDO::PARAM_INT);
     $stmt->bindParam(':id_profil', $id_profil, PDO::PARAM_INT);

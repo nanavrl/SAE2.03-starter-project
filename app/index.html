@@ -110,7 +110,7 @@
       C.getCategories = async function () {
         if (!C.profile) {
           document.querySelector("#categories").innerHTML =
-            "<p>Aucun profil sélectionné.</p>";
+            "";
           return;
         }
 
@@ -123,25 +123,26 @@
         V.renderMoviesCategory(categories); // Affiche les catégories
       };
 
-      C.handlerFavoris = async function (movieId) {
-        
-        console.log(`C.handlerFavoris appelé avec movieId=${movieId}`);
-
-        const profileSelect = document.querySelector("#profile-select");
-        const profileId = profileSelect ? profileSelect.value : null;
-
-        if (!profileId || profileId === "default") {
-          alert(
-            "Veuillez sélectionner un profil avant d'ajouter un film aux favoris."
-          );
+      C.addFavoris = async function (id_movie) {
+        if (!C.profile) {
+          alert("Veuillez sélectionner un profil avant d'ajouter un favori.");
           return;
         }
+        let response = await fetch(
+          `https://mmi.unilim.fr/~onillon4/SAE2.03-Onillon/server/script.php?todo=addFavoris&id_profil=${C.profile.id}&id_movie=${id_movie}`
+        );
+        let result = await response.json();
 
-        let res = await DataMovie.addFavoris(movieId, profileId);
-        console.log("Réponse du serveur :", res);
-
-        if (res === 1) {
-          alert("Le film a été ajouté à vos favoris !");
+        if (result.success) {
+          alert("Ajouté aux favoris !");
+          let button = document.querySelector(
+            `button[onclick="C.addFavoris(${id_movie})"]`
+          );
+          if (button) {
+            button.classList.add("is-favoris");
+          }
+        } else {
+          alert(result.error || "Erreur lors de l'ajout aux favoris.");
         }
       };
 
@@ -153,7 +154,7 @@
           return;
         }
         let response = await fetch(
-          `https:/mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/script.php?todo=removeFavoris&id_profil=${C.profile.id}&id_movie=${id_movie}`
+          `https://mmi.unilim.fr/~onillon4/SAE2.03-Onillon/server/script.php?todo=removeFavoris&id_profil=${C.profile.id}&id_movie=${id_movie}`
         );
 
         let result = await response.json();
@@ -166,6 +167,15 @@
         }
       };
 
+      C.goHome = function () {
+        if (C.profile) {
+          C.getMovie(C.profile.age);
+        } else {
+          document.querySelector("#content").innerHTML =
+            "<p>Veuillez sélectionner un profil.</p>";
+        }
+      };
+
       C.showFavoris = async function () {
         if (!C.profile) {
           alert("Veuillez sélectionner un profil.");
@@ -173,7 +183,7 @@
         }
 
         let response = await fetch(
-          `https:/mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/script.php?todo=readFavoris&id_profil=${C.profile.id}`
+          `https://mmi.unilim.fr/~onillon4/SAE2.03-Onillon/server/script.php?todo=readFavoris&id_profil=${C.profile.id}`
         );
         let favoris = await response.json();
 
@@ -187,9 +197,10 @@
         content.innerHTML = Favoris.format(favoris);
       };
 
+
       C.start = async function () {
         let profiles = await DataProfile.read();
-        V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles);
+        V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles );
         // let moviesByCat = await DataMovie.requestMoviesByCategory();
         // V.renderMoviesCategory(moviesByCat);
         C.getMovie();
@@ -212,13 +223,6 @@
         header.innerHTML = NavBar.format(hAbout, hShowMovies, profiles);
       };
 
-      /**
-       * V.renderMovie
-       *
-       * Cette fonction est responsable de l'affichage de la liste des films.
-       * Elle sélectionne l'élément HTML avec l'ID "content" et y insère le contenu
-       * formaté par le composant Movie.
-       */
       V.renderMovie = function (data) {
         let content = document.querySelector("#content");
         content.innerHTML = Movie.format(data);

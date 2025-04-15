@@ -141,7 +141,7 @@ function addFavorisController() {
       return ["error" => "Ce film est déjà dans les favoris."];
   }
 
-  $result = addFavoris($id_profil, $id_movie);
+  $result = addFavoris($id_movie, $id_profil);
   if ($result) {
       return ["success" => "Film ajouté aux favoris."];
   } else {
