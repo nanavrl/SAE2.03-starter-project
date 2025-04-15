@@ -4,7 +4,16 @@
     <li class="navbar__item" onclick="C.goHome()">Accueil</li>
     <li class="navbar__item" onclick="C.showFavoris()">Favoris</li>
   </div>
-  
+  <div class="navbar__middle">
+    <input
+      class="navbar__rechercher"
+      required
+      type="text"
+      name="name"
+      placeholder="Rechercher un film"
+      onkeyup="{{handlerRechercher}}"
+    />
+  </div>
   <div class="navbar__profile">
     <!-- Sélection du profil -->
     <label class="navbar__label">Profil :</label>

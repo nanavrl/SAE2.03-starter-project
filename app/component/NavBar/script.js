@@ -23,6 +23,7 @@ NavBar.format = function (hAbout, hShowMovies, profiles,hFavoris) {
   html = html.replace("{{options}}", options);
   html = html.replace("{{avatar}}", image);
   html = html.replace("{{handler}}", "C.handlerProfile()");
+  html = html.replace("{{handlerRechercher}}", "C.handlerRechercher()");
 
   return html;
 };

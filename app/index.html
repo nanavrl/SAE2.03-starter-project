@@ -14,7 +14,6 @@
     <section class="infos" id="infos"></section>
     <section class="category" id="category"></section>
     <section id="categories"></section>
-    
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
@@ -44,14 +43,21 @@
 
       C.handlerProfile = async function () {
         const select = document.querySelector("#profile-select");
-        let dataProfile = await DataProfile.readOne(select.value);
+        const dataProfile = await DataProfile.readOne(select.value);
+
+        console.log("Profil reçu :", dataProfile);
+
+        if (!dataProfile || dataProfile.length === 0 || !dataProfile[0]) {
+          console.warn("Aucun profil trouvé.");
+          return;
+        }
+
         C.profile = dataProfile[0];
         C.getMovie(C.profile.min_age);
 
-        const profileImage = document.querySelector("#profile-image");
-
-        if (profileImage && C.profile.avatar) {
-          profileImage.src = `../server/images/${C.profile.avatar}`;
+        const profileImage = document.querySelector("#profile-picture");
+        if (profileImage && C.profile.image) {
+          profileImage.src = `https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/${C.profile.image}`;
         }
       };
 
@@ -209,6 +215,23 @@
           content.innerHTML = Mis_en_avant.format(featuredMovies);
         }
       };
+
+      C.handlerRechercher = async function () {
+  const searchInput = document.querySelector("input[name='name']").value.trim();
+
+  // Appel API
+  let res = await DataMovie.rechercherMovies(searchInput);
+  console.log("🔍 Résultat de la recherche :", res);
+
+  const content = document.querySelector("#content");
+
+  if (res && res.length > 0) {
+    content.innerHTML = res.map(Movie.format).join(""); // format(te) les cartes
+  } else {
+    content.innerHTML = "<p>Aucun film ne correspond à votre recherche.</p>";
+  }
+};
+
 
       C.start = async function () {
         let profiles = await DataProfile.read();
