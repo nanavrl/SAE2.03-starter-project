@@ -1,6 +1,27 @@
-
-
 .movies {
-    display: flex;
-    flex-wrap: row;
+  display: flex;
+  flex-wrap: row;
 }
+
+.movie-categories h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-black);
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 1rem;
+    letter-spacing: 1px;
+  }
+  
+  .movie-categories h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.3rem;
+    width: 6px;
+    height: 80%;
+    background: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent), 0 0 20px var(--color-accent);
+    border-radius: 4px;
+  }

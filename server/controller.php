@@ -204,3 +204,12 @@ function rechercherMoviesController() {
       return [];
   }
 }
+
+
+function readSearchMovieController()
+{
+  $title = $_REQUEST['title'] ?? null;
+  if (empty($title))
+    return false;
+  return searchMovietitle($title);
+}

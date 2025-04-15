@@ -1,5 +1,5 @@
 // URL où se trouve le répertoire "server" sur mmi.unilim.fr
-let HOST_URL = "https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project";
+let HOST_URL = "..";
 
 let DataMovie = {};
 
@@ -63,18 +63,37 @@ DataMovie.readMoviesRecommended = async function () {
   return data;
 };
 
-DataMovie.rechercherMovies = async function (searchQuery) {
-  let response = await fetch(
-    `${HOST_URL}/server/script.php?todo=rechercherMovies&query=${encodeURIComponent(
-      searchQuery
-    )}`
-  );
+DataMovie.requestsearch = async function (valeur) {
+  try {
+    const response = await fetch(
+      HOST_URL + "/server/script.php?todo=searchMovie&title=" + valeur
+    );
 
-  let data = await response.json();
-  return data;
+    if (!response.ok) {
+      console.error("Erreur HTTP:", response.status);
+      return [];
+    }
+
+    const movies = await response.json();
+    console.log("Films reçus :", movies);
+    return movies;
+  } catch (e) {
+    console.error("Erreur dans requestsearch:", e);
+    return [];
+  }
 };
 
 
 
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };
+
+let SearchBar = {};
+
+SearchBar.format = async function () {
+  const templateFile = await fetch("./component/SearchBar/template.html");
+  const template = await templateFile.text();
+  return template;
+};
+
+export { SearchBar };

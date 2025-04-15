@@ -4,16 +4,12 @@
     <li class="navbar__item" onclick="C.goHome()">Accueil</li>
     <li class="navbar__item" onclick="C.showFavoris()">Favoris</li>
   </div>
-  <div class="navbar__middle">
-    <input
-      class="navbar__rechercher"
-      required
-      type="text"
-      name="name"
-      placeholder="Rechercher un film"
-      onkeyup="{{handlerRechercher}}"
-    />
-  </div>
+  <input
+    type="text"
+    class="searchbar__input"
+    placeholder="Rechercher un film, une date, une catégorie..."
+    onkeyup="C.handlerSearchBar(this.value)"
+  />
   <div class="navbar__profile">
     <!-- Sélection du profil -->
     <label class="navbar__label">Profil :</label>
@@ -25,7 +21,7 @@
     <img 
       id="profile-picture"
       class="navbar__picture"
-      src="https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/{{image}}"
+      src="https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/default-avatar.jpg"
       alt="Photo de profil"
     />
   </div>

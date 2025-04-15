@@ -87,10 +87,11 @@ if ( isset($_REQUEST['todo']) ){
       $data = readMoviesRecommendedController();
       break;
 
-      case 'rechercherMovies':
-        $data = rechercherMoviesController();
+
+        case 'searchMovie':
+          $data = readSearchMovieController();
         break;
-    
+
     default: 
       echo json_encode('[error] Unknown todo value');
       http_response_code(400); 

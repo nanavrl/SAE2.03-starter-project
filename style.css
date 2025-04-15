@@ -1,0 +1,68 @@
+/* Reset de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Corps */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fafafa;
+  color: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Conteneur principal */
+.site {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* Titres */
+.phrase {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.no-link {
+  color: #666;
+  font-style: italic;
+}
+
+/* Menus */
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.menu h1 {
+  font-size: 1.25rem;
+}
+
+/* Liens */
+.menu-link {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #111;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  transition: background-color 0.3s ease;
+}
+
+.menu-link:hover {
+  background-color: #a06fd1;
+}

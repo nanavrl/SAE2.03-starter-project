@@ -273,22 +273,19 @@ function readMoviesRecommended() {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function rechercherMovies($query) {
-    $cnx = new PDO("mysql:host=".HOST.";dbname=".DBNAME, DBLOGIN, DBPWD);
 
-    $sql = "SELECT * 
+
+function searchMovietitle($title)
+{
+    $cnx = new PDO('mysql:host=' . HOST . ';dbname=' . DBNAME, DBLOGIN, DBPWD);
+    $sql = 'SELECT Movie.id, Movie.name, Movie.image, Movie.year, Movie.min_age, Movie.description, Movie.featured, Category.name AS category_name
             FROM Movie
-            LEFT JOIN Category c ON Movie.id_category = c.id
-            WHERE LOWER(Movie.name) LIKE :query 
-               OR LOWER(c.name) LIKE :query 
-               OR CAST(Movie.year AS CHAR) LIKE :query";
-
-    // Nettoie la query et ajoute les % ici
-    $query = '%' . strtolower(trim($query)) . '%';
+            INNER JOIN Category ON Movie.id_category = Category.id
+            WHERE Movie.name LIKE :title OR Category.name LIKE :title OR year LIKE :title';
 
     $stmt = $cnx->prepare($sql);
-    $stmt->execute(['query' => $query]);
-
+    $liketitle = '%' . $title . '%';
+    $stmt->bindParam(':title', $liketitle);
+    $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
-

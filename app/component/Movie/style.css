@@ -21,7 +21,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   width: 23rem;
-  height: 34rem;
+  height: 38rem;
 }
 
 .card:hover {
@@ -45,3 +45,42 @@
   color: #333;
   margin: 0;
 }
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Hover effect */
+button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
+}
+
+/* Focus accessibility */
+button:focus {
+  outline: 2px solid #a06fd1;
+  outline-offset: 3px;
+}
+
+/* SVG icon style */
+button svg {
+  width: 24px;
+  height: 24px;
+  stroke: #111;
+  transition: stroke 0.2s ease;
+}
+
+/* Optional: change color on hover */
+button:hover svg {
+  stroke: #a06fd1;
+}
+

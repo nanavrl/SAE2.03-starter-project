@@ -24,6 +24,7 @@
       import { DataProfile } from "./data/dataProfile.js";
       import { Favoris } from "./component/Favoris/script.js";
       import { Mis_en_avant } from "./component/Mis_en_avant/script.js";
+      import { SearchBar } from "./component/SearchBar/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -45,8 +46,6 @@
         const select = document.querySelector("#profile-select");
         const dataProfile = await DataProfile.readOne(select.value);
 
-        console.log("Profil reçu :", dataProfile);
-
         if (!dataProfile || dataProfile.length === 0 || !dataProfile[0]) {
           console.warn("Aucun profil trouvé.");
           return;
@@ -56,8 +55,8 @@
         C.getMovie(C.profile.min_age);
 
         const profileImage = document.querySelector("#profile-picture");
-        if (profileImage && C.profile.image) {
-          profileImage.src = `https://mmi.unilim.fr/~viroulaud8/SAE2.03-starter-project/server/images/${C.profile.image}`;
+        if (profileImage && C.profile.avatar) {
+          profileImage.src = `../server/images/${C.profile.avatar}`;
         }
       };
 
@@ -98,7 +97,6 @@
         }
 
         let res = await DataMovie.addFavoris(movieId, profileId);
-        console.log("Réponse du serveur :", res);
 
         if (res === 1) {
           alert("Le film a été ajouté à vos favoris !");
@@ -135,9 +133,7 @@
           alert("Veuillez sélectionner un profil avant d'ajouter un favori.");
           return;
         }
-        let response = await fetch(
-          `https://mmi.unilim.fr/~onillon4/SAE2.03-Onillon/server/script.php?todo=addFavoris&id_profil=${C.profile.id}&id_movie=${id_movie}`
-        );
+
         let result = await response.json();
 
         if (result.success) {
@@ -160,9 +156,6 @@
           );
           return;
         }
-        let response = await fetch(
-          `https://mmi.unilim.fr/~onillon4/SAE2.03-Onillon/server/script.php?todo=removeFavoris&id_profil=${C.profile.id}&id_movie=${id_movie}`
-        );
 
         let result = await response.json();
 
@@ -189,9 +182,6 @@
           return;
         }
 
-        let response = await fetch(
-          `https://mmi.unilim.fr/~onillon4/SAE2.03-Onillon/server/script.php?todo=readFavoris&id_profil=${C.profile.id}`
-        );
         let favoris = await response.json();
 
         let content = document.querySelector("#content");
@@ -216,26 +206,30 @@
         }
       };
 
-      C.handlerRechercher = async function () {
-  const searchInput = document.querySelector("input[name='name']").value.trim();
+      C.handlerSearchBar = async function (valeur) {
+        if (!valeur || valeur.trim().length === 0) {
+          C.getMovie();
+          return;
+        }
+        const results = await DataMovie.requestsearch(valeur);
+        if (!results || results.length === 0) {
+          document.querySelector("#content").innerHTML =
+            "<p>Aucun résultat trouvé pour votre recherche.</p>";
+          return;
+        }
 
-  // Appel API
-  let res = await DataMovie.rechercherMovies(searchInput);
-  console.log("🔍 Résultat de la recherche :", res);
-
-  const content = document.querySelector("#content");
-
-  if (res && res.length > 0) {
-    content.innerHTML = res.map(Movie.format).join(""); // format(te) les cartes
-  } else {
-    content.innerHTML = "<p>Aucun film ne correspond à votre recherche.</p>";
-  }
-};
-
+        V.renderMovie(results);
+      };
 
       C.start = async function () {
         let profiles = await DataProfile.read();
-        V.renderNavBar("C.handlerAbout()", "C.handlerProfile()", profiles);
+        let searchBar = SearchBar.format();
+        V.renderNavBar(
+          "C.handlerAbout()",
+          "C.handlerProfile()",
+          profiles,
+          searchBar
+        );
         // let moviesByCat = await DataMovie.requestMoviesByCategory();
         // V.renderMoviesCategory(moviesByCat);
         C.getMovie();
