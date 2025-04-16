@@ -1,0 +1,97 @@
+body{
+  margin: 0rem;
+}
+
+.logo-svg {
+  margin: 0rem 1rem;
+  width: 150px;
+  height: auto;
+  fill:currentColor;
+  color: #fafafa; /* Cette couleur affecte le "fill" de l'élément SVG */
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  padding: 0rem;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  box-shadow: 10px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__left {
+  display: flex;
+  list-style: none;
+  text-transform: uppercase;
+}
+.navbar__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-accent); /* violet de base */
+  color: #ffffff;
+  padding: 1.5rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.navbar__item:hover {
+  background-color: var(--color-accent); /* bleu au survol */
+  color: #ffffff;
+}
+
+.navbar__item--2{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-bg); /* violet de base */
+  color: #ffffff;
+  padding: 1.5rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.navbar__item--2:hover {
+  background-color: #55d3e4; /* bleu au survol */
+  color: #ffffff;
+}
+
+.navbar__item svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.navbar__select {
+  background-color:var(--color-bg);
+  color: var(--color-input-text);
+  border: 1px solid var(--color-bg);
+  padding: 1.5rem 0.5rem;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.navbar__select:hover {
+  font-size: var(--font-size-sm);
+  border-top: 1px solid #ffffff; /* fin liseré blanc */
+  padding: 1.5rem 0.5rem;
+}
+
+.navbar__select option {
+  background-color: var(--color-bg);  /* fond sombre */
+  border: 1px solid var(--color-bg);
+  border-radius: 0rem;
+  color: #fafafa;             /* texte clair */
+  font-weight: bold;
+}
+
+svg{
+  fill: white;
+}
+

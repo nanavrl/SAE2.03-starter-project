@@ -1,0 +1,59 @@
+.addFilm {
+  max-width: 600px;
+  margin: 3rem auto;
+  background: #f5f5f5;
+  border-radius: 1rem;
+  padding: 2rem;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+.addFilm__title {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #111;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.addFilm__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.addFilm__form input,
+.addFilm__form select {
+  padding: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  color: #333;
+}
+
+.addFilm__form input:focus,
+.addFilm__form select:focus {
+  border-color: var(--color-black);
+  box-shadow: 0 0 0 3px var(--color-black);
+  outline: none;
+}
+
+.addFilm__form select {
+  background-color: #fff;
+}
+
+.addFilm__form input[type="button"] {
+  background-color: var(--color-black);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.addFilm__form input[type="button"]:hover {
+  background-color: rgb(160, 111, 209);
+}

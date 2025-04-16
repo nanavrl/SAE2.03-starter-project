@@ -1,0 +1,19 @@
+<div class="movie-detail">
+  <div class="movie-detail__grid">
+    <img class="movie-detail__poster" src="../server/images/{{image}}" alt="Affiche du film" />
+
+    <div class="movie-detail__info">
+      <h1 class="movie-detail__title">{{movieTitle}}</h1>
+      <p class="movie-detail__synopsis">{{movieSynopsis}}</p>
+      <p class="movie-detail__paragraphe"><strong>Réalisateur :</strong> <span>{{movieDirector}}</span></p>
+      <p class="movie-detail__paragraphe"><strong>Année :</strong> <span>{{movieYear}}</span></p>
+      <p class="movie-detail__paragraphe"><strong>Catégorie :</strong> <span>{{movieCategory}}</span></p>
+      <p class="movie-detail__paragraphe"><strong>Âge requis :</strong> <span>{{movieAgeRestriction}}</span></p>
+    </div>
+  </div>
+
+  <div class="movie-detail__trailer">
+    <h3>Trailer</h3>
+    <iframe class="movie-detail__iframe" src="{{movieTrailerUrl}}" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>

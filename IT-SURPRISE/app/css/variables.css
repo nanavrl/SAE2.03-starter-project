@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700&display=swap");
+
+:root {
+  /* Couleurs principales */
+  --color-bg: #2f3238;
+  --color-text: #ffffff;
+  --color-accent: #8c75dd;
+  --color-hover: #ffffffcc;
+  --color-input-bg: #323335;
+  --color-input-text: #ffffff;
+  --color-border: #444;
+
+  /* Fonts et tailles */
+  --font-family:  sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+
+  /* Effets */
+  --transition-fast: 0.2s ease-in-out;
+}

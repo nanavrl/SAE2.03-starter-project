@@ -1,0 +1,25 @@
+/* ===== SEARCHBAR ===== */
+.searchbar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin: 0 4rem;
+  position: relative;
+}
+
+.searchbar__input {
+  width: 100%;
+  padding: 1rem 1rem;
+  background-color: #0e0e13;         /* fond noir */
+  color: #cccccc;                    /* texte gris clair */
+  border: none;
+  border-radius: 0;                  /* coins carrés */
+  font-size: 0.95rem;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.searchbar__input::placeholder {
+  color: #f0f0f0;                    /* placeholder plus discret */
+}

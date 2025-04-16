@@ -1,0 +1,86 @@
+.cards-container {
+  padding: 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+  justify-content: center;
+}
+
+.cards {
+  max-width: 78rem;
+  background-color: var(--color-bg);
+  width: 100%;
+}
+
+/* Style des cartes */
+.card {
+  background-color: var(--color-bg);
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 23rem;
+  height: 38rem;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Image du film */
+.card__image {
+  width: 100%;
+  height: 28rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Titre */
+.card__title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+button {
+ 
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+/* Hover effect */
+button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
+}
+
+/* Focus accessibility */
+button:focus {
+  outline: 2px solid #a06fd1;
+  outline-offset: 3px;
+}
+
+/* SVG icon style */
+button svg {
+  width: 24px;
+  height: 24px;
+  stroke: #111;
+  transition: stroke 0.2s ease;
+}
+
+/* Optional: change color on hover */
+button:hover svg {
+  stroke: #a06fd1;
+}
+
