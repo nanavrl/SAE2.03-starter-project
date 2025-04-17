@@ -28,13 +28,7 @@ DataMovie.requestCategories = async function () {
 };
 
 DataMovie.addFavoris = async function (id_profil, id_movie) {
-  let answer = await fetch(
-    HOST_URL +
-      "/server/script.php?todo=addFavoris&id_profil=" +
-      id_profil +
-      "&id_movie=" +
-      id_movie
-  );
+  let answer = await fetch(HOST_URL + "/server/script.php?todo=addFavoris&id_profil=" + id_profil + "&id_movie=" + id_movie);
 
   let data = await answer.json();
   return data;

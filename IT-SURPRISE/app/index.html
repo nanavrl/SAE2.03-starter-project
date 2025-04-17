@@ -138,38 +138,72 @@
           return;
         }
 
-        let result = await response.json();
-
-        if (result.success) {
-          alert("Ajouté aux favoris !");
-          let button = document.querySelector(
-            `button[onclick="C.addFavoris(${id_movie})"]`
+       
+          let response = await fetch(
+            `../server/script.php?todo=addFavoris&id_profil=${C.profile.id}&id_movie=${id_movie}`
           );
-          if (button) {
-            button.classList.add("is-favoris");
+
+          let result = await response.json();
+
+          // Vérifier le résultat de l'ajout aux favoris
+          if (result.success) {
+            alert("Ajouté aux favoris !");
+
+            // Mettre à jour l'interface utilisateur (par exemple, changer le style du bouton)
+            let button = document.querySelector(
+              `button[onclick="C.addFavoris(${id_movie})"]`
+            );
+            if (button) {
+              button.classList.add("is-favoris");
+            }
+          } else {
+            alert(result.error || "Erreur lors de l'ajout aux favoris.");
           }
-        } else {
-          alert(result.error || "Erreur lors de l'ajout aux favoris.");
-        }
+     
       };
 
       C.removeFavoris = async function (id_movie) {
-        if (!C.profile) {
-          alert(
-            "Veuillez sélectionner un profil avant de supprimer un favori."
-          );
-          return;
-        }
+  // Vérifie si un profil est sélectionné
+  if (!C.profile) {
+    alert("Veuillez sélectionner un profil avant de supprimer un favori.");
+    return;
+  }
 
-        let result = await response.json();
-
-        if (result.success) {
-          alert("Supprimé des favoris !");
-          C.showFavoris();
-        } else {
-          alert(result.error || "Erreur lors de la suppression du favori.");
+  try {
+    // Envoie la requête pour supprimer le film des favoris
+    let response = await fetch(
+      `../server/script.php?todo=removeFavoris&id_profil=${C.profile.id}&id_movie=${id_movie}`,
+      {
+        method: 'POST', // ou 'GET', selon la logique du serveur
+        headers: {
+          'Content-Type': 'application/json'
         }
-      };
+      }
+    );
+
+    // Vérifie si la réponse HTTP est correcte
+    if (!response.ok) {
+      throw new Error("Erreur de réseau ou problème avec l'API.");
+    }
+
+    // Récupère la réponse JSON
+    let result = await response.json();
+
+    // Vérifie si la suppression a réussi
+    if (result.success) {
+      alert("Supprimé des favoris !");
+      // Met à jour l'affichage des favoris
+      C.showFavoris();
+    } else {
+      alert(result.error || "Erreur lors de la suppression du favori.");
+    }
+
+  } catch (error) {
+    // Gère les erreurs et les exceptions
+    console.error("Erreur :", error);
+    alert("Une erreur est survenue lors de la suppression du favori.");
+  }
+};
 
       C.goHome = function () {
         if (C.profile) {
@@ -243,21 +277,42 @@
       };
 
       C.showFavoris = async function () {
+        // Vérifie si un profil est sélectionné
         if (!C.profile) {
           alert("Veuillez sélectionner un profil.");
           return;
         }
 
-        let favoris = await response.json();
+        try {
+          // Envoie la requête pour obtenir les favoris du profil
+          let response = await fetch(
+            `../server/script.php?todo=readFavoris&id_profil=${C.profile.id}`
+          );
 
-        let content = document.querySelector("#content");
-        if (!favoris || favoris.length === 0) {
-          content.innerHTML = "<p>Votre liste de favoris est vide.</p>";
-          return;
+          // Vérifie si la réponse HTTP est correcte (status 2xx)
+          if (!response.ok) {
+            throw new Error("Erreur de réseau ou problème avec l'API.");
+          }
+
+          // Récupère la réponse JSON
+          let favoris = await response.json();
+
+          // Sélectionne l'élément où afficher les favoris
+          let content = document.querySelector("#content");
+
+          // Si aucune donnée n'est trouvée
+          if (!favoris || favoris.length === 0) {
+            content.innerHTML = "<p>Votre liste de favoris est vide.</p>";
+            return;
+          }
+
+          // Affiche les favoris avec la méthode format de l'objet Favoris
+          content.innerHTML = Favoris.format(favoris);
+        } catch (error) {
+          // Gère les erreurs et les exceptions
+          console.error("Erreur :", error);
+          alert("Une erreur est survenue lors de la récupération des favoris.");
         }
-
-        // Utilise maintenant Favoris.format
-        content.innerHTML = Favoris.format(favoris);
       };
 
       C.getFeaturedMovies = async function () {
