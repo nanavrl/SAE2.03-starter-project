@@ -1,0 +1,170 @@
+/* Styles généraux pour le footer */
+footer {
+  background-color: #1c1c1c;
+  color: #ffffff;
+  padding: 20px 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Section générique du footer */
+.footer-section,
+.footer-follow-us,
+.footer-newsletter,
+.footer-founders,
+.footer-organizations,
+.footer-support,
+.footer-credits {
+  flex: 1;
+  margin: 10px;
+  padding: 20px;
+}
+
+/* Titre des sections */
+.footer-section h3,
+.footer-follow-us h3,
+.footer-newsletter h3,
+.footer-founders h3,
+.footer-organizations h3,
+.footer-support h3,
+.footer-credits h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Liens dans les sections */
+.footer-section a,
+.footer-follow-us a,
+.footer-newsletter a,
+.footer-organizations a,
+.footer-support a {
+  color: #ffffff;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.footer-section a:hover,
+.footer-follow-us a:hover,
+.footer-newsletter a:hover,
+.footer-organizations a:hover,
+.footer-support a:hover {
+  text-decoration: underline;
+}
+
+/* Liens dans la section "Suivez-nous" avec les icônes */
+.footer-follow-us a {
+  display: flex;
+  align-items: center;
+}
+
+.footer-follow-us img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+/* Section Newsletter */
+.footer-newsletter p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+/* Bouton S'inscrire à la newsletter */
+.newsletter-btn {
+  display: inline-block;
+  background-color: #e60000; /* Rouge */
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.newsletter-btn:hover {
+  background-color: #cc0000; /* Rouge foncé */
+}
+
+/* Ligne de séparation */
+.footer-line {
+  width: 100%;
+  border-top: 1px solid #444444;
+  margin: 30px 0;
+}
+
+/* Section "Fondateurs" */
+.footer-founders p {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+/* Section "Organisations" */
+.footer-organizations a {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.footer-organizations a:hover {
+  color: #e60000; /* Rouge */
+}
+
+/* Section "Support" */
+.footer-support a {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.footer-support a:hover {
+  color: #e60000; /* Rouge */
+}
+
+/* Section "Crédits" */
+.footer-credits p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section,
+  .footer-follow-us,
+  .footer-newsletter,
+  .footer-founders,
+  .footer-organizations,
+  .footer-support,
+  .footer-credits {
+    flex: none;
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-line {
+    margin: 20px 0;
+  }
+
+  .newsletter-btn {
+    width: 100%;
+    margin-top: 20px;
+  }
+}

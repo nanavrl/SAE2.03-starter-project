@@ -13,3 +13,15 @@
   --color-fg: var(--color-white);
   --color-bg: var(--color-gray-dark);
 }
+
+
+body {
+   margin: 0;
+   overflow-x: hidden; /* Empêche le débordement horizontal */
+  }
+  
+  .container {
+   max-width: 100%;
+   overflow-x: hidden;
+  }
+  

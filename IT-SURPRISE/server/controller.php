@@ -181,29 +181,6 @@ function readMoviesRecommendedController() {
   return $movies;
 }
 
-function rechercherMoviesController() {
-  try {
-      $query = $_REQUEST['query'] ?? null;
-
-      if (empty($query)) {
-          error_log("Paramètre 'query' manquant ou vide.");
-          return [];
-      }
-
-      $movies = rechercherMovies($query); // Appel à la fonction dans model.php
-
-      if (!$movies) {
-          error_log("Aucun film trouvé pour la recherche : $query.");
-          return [];
-      }
-
-      return $movies;
-  } catch (Exception $e) {
-      error_log("Erreur dans rechercherMoviesController : " . $e->getMessage());
-      http_response_code(500); // Réponse HTTP 500 en cas d'erreur
-      return [];
-  }
-}
 
 
 function readSearchMovieController()

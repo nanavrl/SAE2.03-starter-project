@@ -54,8 +54,8 @@ DataMovie.removeFavoris = async function (id_profil, id_movie) {
 };
 
 DataMovie.readMoviesRecommended = async function () {
-  let response = await fetch(
-    `${HOST_URL}/server/script.php?todo=readMoviesRecommended`
+  let response = await fetch(HOST_URL +
+      "/server/script.php?todo=readMoviesRecommended"
   );
 
   // Conversion de la réponse en JSON
@@ -88,12 +88,3 @@ DataMovie.requestsearch = async function (valeur) {
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };
 
-let SearchBar = {};
-
-SearchBar.format = async function () {
-  const templateFile = await fetch("./component/SearchBar/template.html");
-  const template = await templateFile.text();
-  return template;
-};
-
-export { SearchBar };

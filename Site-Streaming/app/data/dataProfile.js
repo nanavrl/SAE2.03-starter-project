@@ -13,8 +13,8 @@ DataProfile.read = async function () {
 };
 
 
-DataProfile.readOne = async function (id) {
-  const response = await fetch(`${HOST_URL}/server/script.php?todo=readProfile&id=${id}`);
+DataProfile.readOne = async function (id) { 
+  const response = await fetch(HOST_URL + `/server/script.php?todo=readProfile&id=${id}`);
   if (!response.ok) {
     console.error("Erreur lors de la récupération du profil :", response.statusText);
     return null;

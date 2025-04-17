@@ -1,33 +1,36 @@
-<nav class="navbar font-sans">
-  <div class="navbar__left">
-    <!-- Lien vers la page d'accueil -->
-  
-    <li class="navbar__item" onclick="C.goHome()">Accueil</li>
-    <li class="navbar__item--2" onclick="C.showFavoris()">Favoris</li>
-  </div>
-  <div class="searchbar">
-    <input
-      type="text"
-      class="searchbar__input"
-      placeholder="Rechercher un film, une date, une catégorie..."
-      onkeyup="C.handlerSearchBar(this.value)"
-    />
-  </div>
-  <div class="navbar__profile">
-    <!-- Sélection du profil -->
-    <select id="profile-select" class="navbar__select" onchange="{{handler}}">
-      {{options}}
-    </select>
-    <select required name="langue" class="navbar__select">
-      <option value="1">FR</option>
-      <option value="2">DE</option>
-      <option value="3">EN</option>
-    </select>
-    </select>
+<div class="nav-wrapper">
+  <nav class="navbar font-sans">
+    <div class="navbar__left">
+      <!-- Lien vers la page d'accueil -->
+    
+      <li class="navbar__item" onclick="C.goHome()">Accueil</li>
+      <li class="navbar__item--2" onclick="C.showFavoris()">Favoris</li>
+    </div>
+    <div class="searchbar">
+      <input
+        type="text"
+        class="searchbar__input"
+        placeholder="Rechercher un film, une date, une catégorie..."
+        onkeyup="C.handlerSearchBar(this.value)"
+      />
+    </div>
+    <div class="navbar__profile">
+      <!-- Sélection du profil -->
+      <select id="profile-select" class="navbar__select" onchange="{{handler}}">
+        {{options}}
+      </select>
+      <select required name="langue" class="navbar__select">
+        <option value="1">FR</option>
+        <option value="2">DE</option>
+        <option value="3">EN</option>
+      </select>
+      </select>
 
-  
-  </div>
-  <div class="navbar2">
+    
+    </div>
+  </nav>
+    <div class="sub-bar">
 
-  </div>
-</nav>
+    </div>
+  
+</div>

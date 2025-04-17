@@ -9,12 +9,13 @@
 
   <body>
     <header id="header"></header>
-    <header id="header2"></header>
+
     <section id="featured-movies"></section>
     <section class="cards" id="content"></section>
     <section class="infos" id="infos"></section>
     <section class="category" id="category"></section>
     <section id="categories"></section>
+    <section id="footer-container"></section>
 
     <script type="module">
       import { NavBar } from "./component/NavBar/script.js";
@@ -26,6 +27,8 @@
       import { Favoris } from "./component/Favoris/script.js";
       import { Mis_en_avant } from "./component/Mis_en_avant/script.js";
       import { SearchBar } from "./component/SearchBar/script.js";
+
+      import { Footer } from "./component/Footer/script.js";
 
       // Controleur
       // Rappel, écrire window.C plutôt que let C est nécessaire pour tester depuis la console du navigateur
@@ -204,6 +207,15 @@
           content.innerHTML = "<p>Aucun film mis en avant pour le moment.</p>";
         } else {
           content.innerHTML = Mis_en_avant.format(featuredMovies);
+
+          // Appel de la fonction initCarousel après avoir ajouté les films
+          let carouselElement = content.querySelector(".carousel");
+          if (carouselElement) {
+            console.log("Carousel trouvé, initialisation...");
+            initCarousel(carouselElement); // Initialisation du carousel
+          } else {
+            console.error("Le carousel n'a pas été trouvé !");
+          }
         }
       };
 
@@ -222,6 +234,79 @@
         V.renderMovie(results);
       };
 
+      function initCarousel(carouselElement) {
+        const inner = carouselElement.querySelector(".carousel__inner");
+        const prevBtn = carouselElement.querySelector(".carousel__btn--prev");
+        const nextBtn = carouselElement.querySelector(".carousel__btn--next");
+
+        console.log(inner, prevBtn, nextBtn); // Vérifie si ces éléments existent
+
+        let index = 0;
+        const totalSlides = inner.children.length;
+
+        function updateCarousel() {
+          // Ajoute une classe pour démarrer le fondu
+          inner.classList.add("fade-out");
+
+          // Attendre un petit moment pour que l'effet ait lieu
+          setTimeout(() => {
+            inner.classList.add("fade-id");
+            // Change le slide
+            inner.style.transform = `translateX(-${index * 100}%)`;
+
+            // Puis réactive l’opacité doucement
+            inner.classList.remove("fade-out");
+          }, 300); // temps du fondu (doit être cohérent avec le CSS)
+        }
+
+        nextBtn.addEventListener("click", () => {
+          index = (index + 1) % totalSlides;
+          updateCarousel();
+        });
+
+        updateCarousel();
+      }
+
+      function setupCarousel(wrapperSelector, cardsPerPage = 4) {
+        const wrapper = document.querySelector(wrapperSelector);
+        if (!wrapper) return;
+
+        const track = wrapper.querySelector(".carousel-track .movies");
+        const cards = wrapper.querySelectorAll(".movie-card");
+        const prev = wrapper.querySelector(".carousel-btn.prev");
+        const next = wrapper.querySelector(".carousel-btn.next");
+
+        let currentPage = 0;
+        const totalPages = Math.ceil(cards.length / cardsPerPage);
+
+        // Définir largeur de chaque carte pour être en ligne
+        cards.forEach((card) => {
+          card.style.flex = `0 0 calc(100% / ${cardsPerPage})`;
+        });
+
+        // Affiche la bonne "page"
+        function updateCarousel() {
+          const translateX = -(100 / cardsPerPage) * currentPage;
+          track.style.transform = `translateX(${translateX}%)`;
+        }
+
+        next.addEventListener("click", () => {
+          if (currentPage < totalPages - 1) {
+            currentPage++;
+            updateCarousel();
+          }
+        });
+
+        prev.addEventListener("click", () => {
+          if (currentPage > 0) {
+            currentPage--;
+            updateCarousel();
+          }
+        });
+
+        updateCarousel();
+      }
+
       C.start = async function () {
         let profiles = await DataProfile.read();
         let searchBar = SearchBar.format();
@@ -236,6 +321,16 @@
         C.getMovie();
         C.getCategories();
         C.getFeaturedMovies();
+        let carouselElement = document.querySelector(".carousel");
+
+        V.renderFooter();
+
+        // Si tu ajoutes dynamiquement plusieurs carrousels :
+        document.querySelectorAll(".carousel-wrapper").forEach((wrapper) => {
+          setupCarousel(`#${wrapper.id}`, 4);
+        });
+        // Après affichage dynamique des carrousels
+        MovieCategoryCaross.setupCarousel(".carousel-wrapper", 4);
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)
@@ -262,6 +357,11 @@
       V.renderMovieDetail = function (movieData) {
         let content = document.querySelector("#content");
         content.innerHTML = MovieDetail.format(movieData);
+      };
+
+      V.renderFooter = function () {
+        let content = document.querySelector("#footer-container");
+        content.innerHTML = Footer.format();
       };
 
       V.renderMoviesCategory = function (data) {

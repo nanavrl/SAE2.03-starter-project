@@ -1,7 +1,7 @@
 #featured-movies {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* <- ça centre toutes les cartes */
+  justify-content: center; /* Ça centre toutes les cartes */
   gap: 2rem;
   padding: 0rem 2rem;
   font-family: "Poppins", sans-serif;
@@ -12,34 +12,43 @@
   cursor: pointer;
   z-index: 0;
   position: relative;
-}
-
-.cardreco__img-wrapper{
-  width: 80vw;
-  overflow: hidden;
+  flex: 0 0 100%; /* Chaque carte prend 100% de la largeur disponible */
+  box-sizing: border-box;
+ 
+  width: 300px; /* Fixe une largeur uniforme pour toutes les cartes */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black; /* en cas d'espaces autour de l'image */
+  margin: 0 auto; /* Centrer les cartes */
+  transition: all 0.3s ease; /* Transition douce pour les changements */
+}
 
+.cardreco__img-wrapper {
+  width: 100%;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* Pour l'espace autour de l'image */
 }
 
 .cardreco__img {
-  width: 100%;
-  height: 100%;
-  object-position: center;
-  opacity: 70%;
- 
+  width: 100%; /* L'image occupe toute la largeur de son conteneur */
+  height: 100%; /* L'image occupe toute la hauteur de son conteneur */
+  object-fit:cover; /* L'image couvre toute la carte en remplissant la largeur et la hauteur */
+  object-position: center; /* Centrer l'image */
+  opacity: 70%; /* Opacité de l'image */
+  height: 503.13;
 }
 
 .cardreco__titre {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   margin: 0 0rem 1rem 2rem;
   color: #ffffff;
   position: absolute;
-  z-index: 2; /* plus haut que la description */
-  bottom: 11.5rem; /* on le place au-dessus de la description */
+  z-index: 2; /* Plus haut que la description */
+  bottom: 4rem; /* On le place au-dessus de la description */
   left: 0;
   right: 0;
 }
@@ -52,42 +61,104 @@
   line-height: 1.4;
   position: absolute;
   z-index: 3;
-  bottom: 9.5rem;
-  left: 0;
-  right: 0;
-}
-
-
-.cardreco__img__profil{
-  width: 5rem;
-  height: 5rem;
-  margin-left: 2rem;
-  position: absolute;
-  z-index: 3;
   bottom: 2rem;
   left: 0;
   right: 0;
 }
 
-.cardreco__description-name{
-  text-transform: uppercase;
-  color: rgb(255, 255, 255);
-  text-decoration: underline;
-  position: absolute;
-  z-index: 0;
-  margin: 0 1rem 1rem 8rem;
-  bottom: 2rem;
-  left: 0;
-  right: 0;
+/* Mobile : Pour les petits écrans */
+@media (max-width: 600px) {
+  .cardreco {
+    height: 220px; /* Hauteur plus petite sur mobile */
+    width: 90%; /* Plus large sur mobile */
+  }
+
+  .cardreco__img {
+    width: 100%; /* L'image occupe toute la largeur */
+  }
 }
 
-.cardreco__desc-name{
+/* Tablette : Ajustement pour les écrans de taille moyenne */
+@media (max-width: 900px) {
+  .cardreco {
+    height: 270px; /* Hauteur modifiée pour les tablettes */
+    width: 45%; /* Plus large sur tablette */
+  }
+
+  .cardreco__img {
+    width: 100%; /* L'image occupe toute la largeur */
+  }
+}
+
+/* Desktop : Écrans de grande taille */
+@media (min-width: 1200px) {
+  .cardreco {
+    height: 350px; /* Hauteur uniforme sur grand écran */
+    width: 25%; /* Plus de largeur sur grands écrans */
+  }
+
+  .cardreco__img {
+    width: 100%; /* L'image occupe toute la largeur */
+  }
+}
+
+
+
+/* CAROUSEL */
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.icon{
+  width: 1.1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.5);
   color: white;
+  border: none;
+  z-index: 10;
+  cursor: pointer;
+  padding: 1rem;
+  right: 3rem;
+ 
+}
+
+.carousel__btn--next {
+  background-color: #f15567; /* Rouge vif */
+  color: #ffffff;            /* Texte blanc */
+  border: none;
+  border-radius: 4rem;        /* Coins légèrement arrondis */
+  padding: 1.25em 2.25em;
   font-weight: bold;
-  position: absolute;
-  z-index: 0;
-  margin: 0 0rem 1rem 8rem;
-  bottom: 4rem;
-  left: 0;
-  right: 0;
+  font-size: 14px;
+  cursor: pointer;
+ 
+}
+
+.carousel__btn--next:hover {
+  background-color: white; /* Rouge vif */
+  color: #f15567;
+}
+
+.carousel__inner {
+  display: flex;
+  transition: opacity 0.4s ease-in-out;
+  width: 100%;
+}
+
+.carousel__inner.fade-out {
+  opacity: 0;
+  pointer-events: none;
 }

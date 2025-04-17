@@ -88,12 +88,3 @@ DataMovie.requestsearch = async function (valeur) {
 // On exporte la fonction DataMovie.requestMovies
 export { DataMovie };
 
-let SearchBar = {};
-
-SearchBar.format = async function () {
-  const templateFile = await fetch("./component/SearchBar/template.html");
-  const template = await templateFile.text();
-  return template;
-};
-
-export { SearchBar };

@@ -2,9 +2,9 @@
 
 :root {
   /* Couleurs principales */
-  --color-bg: #2f3238;
+  --color-bg: rgb(26, 26, 29);
   --color-text: #ffffff;
-  --color-accent: #8c75dd;
+  --color-accent: rgb(94,62,145);
   --color-hover: #ffffffcc;
   --color-input-bg: #323335;
   --color-input-text: #ffffff;
@@ -19,3 +19,14 @@
   /* Effets */
   --transition-fast: 0.2s ease-in-out;
 }
+
+body {
+  margin: 0;
+  overflow-x: hidden; /* Empêche le débordement horizontal */
+ }
+ 
+ .container {
+  max-width: 100%;
+  overflow-x: hidden;
+ }
+ 
