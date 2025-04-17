@@ -2,7 +2,11 @@
   <nav class="navbar font-sans">
     <div class="navbar__left">
       <!-- Lien vers la page d'accueil -->
-    
+      <img
+        src="../server/images/logo.png"
+        alt="Logo"
+        class="navbar__logo"
+        onclick="C.goHome()"/>
       <li class="navbar__item" onclick="C.goHome()">Accueil</li>
       <li class="navbar__item--2" onclick="C.showFavoris()">Favoris</li>
     </div>
@@ -10,7 +14,7 @@
       <input
         type="text"
         class="searchbar__input"
-        placeholder="Rechercher un film, une date, une catégorie..."
+        placeholder="Rechercher par film, réal, acteur ou liste"
         onkeyup="C.handlerSearchBar(this.value)"
       />
     </div>

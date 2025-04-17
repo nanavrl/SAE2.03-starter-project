@@ -1,6 +1,13 @@
 <div class="movie-categories">
   <h3>{{categoryName}}</h3>
-  <div class="movies">
-    {{movieCard}}
+  <div class="carousel">
+    <button class="carousel__button carousel__button--left" onclick="C.scrollLeft('{{id}}')">&#8249;</button>
+
+    <!-- 👉 ICI on ajoute l'ID -->
+    <div class="movies" id="{{id}}">
+      {{movieCard}}
+    </div>
+
+    <button class="carousel__button carousel__button--right" onclick="C.scrollRight('{{id}}')">&#8250;</button>
   </div>
 </div>

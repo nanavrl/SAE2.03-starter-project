@@ -10,7 +10,7 @@
 .searchbar__input {
   width: 100%;
   padding: 1rem 1rem;
-  background-color: #0e0e13;         /* fond noir */
+  background-color: var(--darker-color);         /* fond noir */
   color: #cccccc;                    /* texte gris clair */
   border: none;
   border-radius: 0;                  /* coins carrés */
@@ -21,5 +21,5 @@
 }
 
 .searchbar__input::placeholder {
-  color: #f0f0f0;                    /* placeholder plus discret */
+  color: #747474;                    /* placeholder plus discret */
 }

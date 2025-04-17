@@ -1,16 +1,10 @@
-.cards{
-  background-color: var(--color-white);
-}
 
-.movie-detail__paragraphe{
-  margin-bottom: 0.3rem;
-}
-
-.movie-detail {
-  max-width: 1200px;
+/* === STYLES PRINCIPAUX === */
+.film-detail {
+  max-width: 1500px;
   margin: 4rem auto;
-  padding: 2rem;
-  background-color: var(--color-black);
+  padding: 3rem;
+  background-color: var(--dark-color);
   color: var(--color-white);
   font-family: var(--ff-sans);
   display: flex;
@@ -18,63 +12,68 @@
   gap: 3rem;
 }
 
-.movie-detail__title{
-  color: white;
-}
-
-.movie-detail__paragraphe{
-  color: white;
-}
-
-.movie-detail__trailer{
-  color: white;
-}
-
 /* === GRID LAYOUT PRINCIPAL === */
-.movie-detail__grid {
+
+.film-detail__poster {
+  width: 100%;
+  height: auto;
+  object-fit:fill;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+  height: 450px; /* Hauteur uniforme sur grand écran */
+  width: 100%; 
+}
+
+.film-detail__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
 }
 
-.movie-detail__poster {
-  width: 100%;
-  object-fit: cover;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
-}
+
 
 /* === INFOS === */
-.movie-detail__info {
+.film-detail__info {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.movie-detail__information{
+.film-detail__title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin: 0;
+  color: var(--color-white);
+}
+
+.film-detail__paragraphe {
+  font-size: 1rem;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.film-detail__extra-info {
   display: flex;
   flex-direction: row;
+  gap: 0.6rem;
 }
 
-.movie-detail__paragraphe{
-  display: flex;
-
+.film-detail__extra-info p {
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
-.movie-detail__title {
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin: 0rem;
+.film-detail__extra-info span {
+  font-weight: normal;
 }
 
-.movie-detail__synopsis {
-  font-size: 0.8rem;
-  line-height: 1.6;
-  text-align: justify;
-  color: var(--color-gray-light);
-  padding-right: 2rem;
+/* === TRAILER SECTION === */
+.film-detail__trailer {
+  color: var(--color-white);
+  padding-top: 2rem;
 }
 
-.movie-detail__iframe {
+.film-detail__iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
   border: none;
@@ -83,12 +82,35 @@
 
 /* === RESPONSIVE DESKTOP === */
 @media (min-width: 1024px) {
-  .movie-detail__grid {
+  .film-detail__grid {
     grid-template-columns: 40% 60%;
     align-items: start;
   }
 
-  .movie-detail__title {
-    font-size: 2.8rem;
+  .film-detail__title {
+    font-size: 3.2rem;
   }
+
+  .film-detail__info {
+    align-self: flex-start;
+  }
+
+  .film-detail__extra-info {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+  }
+}
+
+/* === PADDING ET MARGINS === */
+.film-detail__paragraphe {
+  margin-bottom: 1rem;
+}
+
+.film-detail__synopsis {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: justify;
+  color: var(--color-gray-light);
+  padding-right: 2rem;
 }

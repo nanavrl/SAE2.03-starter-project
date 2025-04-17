@@ -180,6 +180,68 @@
         }
       };
 
+      C.scrollLeft = function (id) {
+        console.log(`Scrolling left for ID: ${id}`);
+        const track = document.getElementById(id);
+        if (!track) {
+          console.error(`Element with ID '${id}' not found.`);
+          return;
+        }
+
+        // Sélectionne le conteneur des cartes dans le carrousel
+        const cardsContainer = track.querySelector(".cards-container");
+        if (!cardsContainer) {
+          console.error("Cards container not found in the carousel.");
+          return;
+        }
+
+        // Sélectionne la première carte dans le carrousel
+        const card = cardsContainer.querySelector(".card");
+        if (!card) {
+          console.error("No card found in the carousel.");
+          return;
+        }
+
+        // Calcul de la largeur de la carte et de l'espacement (gap)
+        const cardWidth = card.offsetWidth;
+        const gap = parseInt(getComputedStyle(cardsContainer).gap || 0, 10); // Récupérer le gap des cartes
+        const moveBy = cardWidth + gap;
+
+        // Défiler vers la gauche
+        cardsContainer.scrollBy({ left: -moveBy, behavior: "smooth" });
+      };
+
+      C.scrollRight = function (id) {
+        console.log(`Scrolling right for ID: ${id}`);
+        const track = document.getElementById(id);
+        if (!track) {
+          console.error(`Element with ID '${id}' not found.`);
+          return;
+        }
+
+        // Sélectionne le conteneur des cartes dans le carrousel
+        const cardsContainer = track.querySelector(".cards-container");
+        if (!cardsContainer) {
+          console.error("Cards container not found in the carousel.");
+          return;
+        }
+
+        // Sélectionne la première carte dans le carrousel
+        const card = cardsContainer.querySelector(".card");
+        if (!card) {
+          console.error("No card found in the carousel.");
+          return;
+        }
+
+        // Calcul de la largeur de la carte et de l'espacement (gap)
+        const cardWidth = card.offsetWidth;
+        const gap = parseInt(getComputedStyle(cardsContainer).gap || 0, 10); // Récupérer le gap des cartes
+        const moveBy = cardWidth + gap;
+
+        // Défiler vers la droite
+        cardsContainer.scrollBy({ left: moveBy, behavior: "smooth" });
+      };
+
       C.showFavoris = async function () {
         if (!C.profile) {
           alert("Veuillez sélectionner un profil.");
@@ -211,7 +273,7 @@
           // Appel de la fonction initCarousel après avoir ajouté les films
           let carouselElement = content.querySelector(".carousel");
           if (carouselElement) {
-            console.log("Carousel trouvé, initialisation...");
+
             initCarousel(carouselElement); // Initialisation du carousel
           } else {
             console.error("Le carousel n'a pas été trouvé !");
@@ -267,46 +329,6 @@
         updateCarousel();
       }
 
-      function setupCarousel(wrapperSelector, cardsPerPage = 4) {
-        const wrapper = document.querySelector(wrapperSelector);
-        if (!wrapper) return;
-
-        const track = wrapper.querySelector(".carousel-track .movies");
-        const cards = wrapper.querySelectorAll(".movie-card");
-        const prev = wrapper.querySelector(".carousel-btn.prev");
-        const next = wrapper.querySelector(".carousel-btn.next");
-
-        let currentPage = 0;
-        const totalPages = Math.ceil(cards.length / cardsPerPage);
-
-        // Définir largeur de chaque carte pour être en ligne
-        cards.forEach((card) => {
-          card.style.flex = `0 0 calc(100% / ${cardsPerPage})`;
-        });
-
-        // Affiche la bonne "page"
-        function updateCarousel() {
-          const translateX = -(100 / cardsPerPage) * currentPage;
-          track.style.transform = `translateX(${translateX}%)`;
-        }
-
-        next.addEventListener("click", () => {
-          if (currentPage < totalPages - 1) {
-            currentPage++;
-            updateCarousel();
-          }
-        });
-
-        prev.addEventListener("click", () => {
-          if (currentPage > 0) {
-            currentPage--;
-            updateCarousel();
-          }
-        });
-
-        updateCarousel();
-      }
-
       C.start = async function () {
         let profiles = await DataProfile.read();
         let searchBar = SearchBar.format();
@@ -330,7 +352,6 @@
           setupCarousel(`#${wrapper.id}`, 4);
         });
         // Après affichage dynamique des carrousels
-        MovieCategoryCaross.setupCarousel(".carousel-wrapper", 4);
       };
 
       // Vue (contient tout ce qui est relatif à l'affichage)

@@ -1,5 +1,5 @@
 .movie-categories{
-  margin-left: 2rem;
+
   margin-right: 2rem;
 }
 
@@ -9,7 +9,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
- 
 }
 
 /* Style de chaque carte */
@@ -55,7 +54,6 @@
   font-size: 1rem;
   font-weight: 600;
 }
-
 
 
 

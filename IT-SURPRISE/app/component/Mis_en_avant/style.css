@@ -32,14 +32,6 @@
   background-color: black; /* Pour l'espace autour de l'image */
 }
 
-.cardreco__img {
-  width: 100%; /* L'image occupe toute la largeur de son conteneur */
-  height: 100%; /* L'image occupe toute la hauteur de son conteneur */
-  object-fit:cover; /* L'image couvre toute la carte en remplissant la largeur et la hauteur */
-  object-position: center; /* Centrer l'image */
-  opacity: 70%; /* Opacité de l'image */
-  height: 503.13;
-}
 
 .cardreco__titre {
   font-size: 3rem;
@@ -48,8 +40,8 @@
   color: #ffffff;
   position: absolute;
   z-index: 2; /* Plus haut que la description */
-  bottom: 4rem; /* On le place au-dessus de la description */
-  left: 0;
+  bottom: 6rem; /* On le place au-dessus de la description */
+  left: 4rem;
   right: 0;
 }
 
@@ -61,8 +53,8 @@
   line-height: 1.4;
   position: absolute;
   z-index: 3;
-  bottom: 2rem;
-  left: 0;
+  bottom: 4rem;
+  left: 4rem;
   right: 0;
 }
 
@@ -93,7 +85,7 @@
 /* Desktop : Écrans de grande taille */
 @media (min-width: 1200px) {
   .cardreco {
-    height: 350px; /* Hauteur uniforme sur grand écran */
+    height: 450px; /* Hauteur uniforme sur grand écran */
     width: 25%; /* Plus de largeur sur grands écrans */
   }
 
@@ -123,16 +115,16 @@
 
 .carousel__btn {
   position: absolute;
-  top: 50%;
   font-size: 2rem;
   background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  z-index: 10;
+  z-index: 5;
   cursor: pointer;
   padding: 1rem;
+  margin-top: 5rem;
   right: 3rem;
- 
+  top: 50%;
 }
 
 .carousel__btn--next {
@@ -144,7 +136,6 @@
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
- 
 }
 
 .carousel__btn--next:hover {

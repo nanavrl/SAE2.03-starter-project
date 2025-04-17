@@ -7,14 +7,18 @@
   --color-accent: rgb(94,62,145);
   --color-hover: #ffffffcc;
   --color-input-bg: #323335;
-  --color-input-text: #ffffff;
+  --color-white: #ffffff;
   --color-border: #444;
+  --dark-color: rgb(21,21,30);
+  --darker-color: rgb(11,11,20);
+  --grey-color: rgb(31,31,40);
 
   /* Fonts et tailles */
   --font-family:  sans-serif;
   --font-size-base: 16px;
   --font-size-sm: 14px;
   --font-size-lg: 18px;
+  
 
   /* Effets */
   --transition-fast: 0.2s ease-in-out;

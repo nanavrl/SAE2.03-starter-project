@@ -1,24 +1,18 @@
-/* Styles généraux pour le footer */
-footer {
-  background-color: #1c1c1c;
-  color: #ffffff;
-  padding: 20px 0;
-}
 
 .footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  background-color: var(--darker-color);
+
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 /* Section générique du footer */
-.footer-section,
-.footer-follow-us,
+
 .footer-newsletter,
 .footer-founders,
-.footer-organizations,
+
 .footer-support,
 .footer-credits {
   flex: 1;
@@ -31,20 +25,23 @@ footer {
 .footer-follow-us h3,
 .footer-newsletter h3,
 .footer-founders h3,
-.footer-organizations h3,
+
 .footer-support h3,
 .footer-credits h3 {
-  font-size: 16px;
+  font-size: 0.8rem;
+  font-weight: 900;
   margin-bottom: 15px;
-  color: #ffffff;
+  color: #818080;
   font-weight: bold;
+  text-transform: uppercase;
+  font-family:  sans-serif;
 }
 
 /* Liens dans les sections */
 .footer-section a,
 .footer-follow-us a,
 .footer-newsletter a,
-.footer-organizations a,
+
 .footer-support a {
   color: #ffffff;
   text-decoration: none;
@@ -52,13 +49,14 @@ footer {
   margin-bottom: 5px;
 }
 
-.footer-section a:hover,
-.footer-follow-us a:hover,
-.footer-newsletter a:hover,
-.footer-organizations a:hover,
-.footer-support a:hover {
-  text-decoration: underline;
+.footer-top {
+  display: flex;
+  justify-content: space-evenly; /* Espace égal entre les éléments */
+  align-items: center; /* Centre les éléments verticalement */
+  width: 100%; /* Occupe toute la largeur disponible */
+  margin: 2rem;
 }
+
 
 /* Liens dans la section "Suivez-nous" avec les icônes */
 .footer-follow-us a {
@@ -82,10 +80,10 @@ footer {
 
 /* Bouton S'inscrire à la newsletter */
 .newsletter-btn {
-  display: inline-block;
-  background-color: #e60000; /* Rouge */
+  display: flex;
+  background-color: #ee5959; /* Rouge */
   color: #ffffff;
-  padding: 12px 20px;
+  padding: 1rem 2rem;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
@@ -94,7 +92,8 @@ footer {
 }
 
 .newsletter-btn:hover {
-  background-color: #cc0000; /* Rouge foncé */
+  background-color: white; /* Rouge foncé */
+  color: #ff5353;
 }
 
 /* Ligne de séparation */
@@ -111,16 +110,6 @@ footer {
   font-size: 14px;
   line-height: 1.6;
   color: #ffffff;
-}
-
-/* Section "Organisations" */
-.footer-organizations a {
-  font-size: 14px;
-  color: #ffffff;
-}
-
-.footer-organizations a:hover {
-  color: #e60000; /* Rouge */
 }
 
 /* Section "Support" */
@@ -140,6 +129,52 @@ footer {
   color: #ffffff;
 }
 
+/* === Mise à jour des styles pour l'alignement === */
+
+/* Section "Partout et tout le temps" et "Téléchargement" */
+.footer-newsletter {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrer le contenu */
+  text-align: center;
+}
+
+.footer-newsletter p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Centrer les éléments de "Fondateurs" et autres sections similaires */
+.footer-founders,
+.footer-credits,
+.footer-support
+ {
+  text-align: center;
+  flex: 1;
+}
+
+/* Alignement du texte "Partout et tout le temps" sous la section "Téléchargement" */
+.footer-newsletter a {
+  margin-top: 10px;
+}
+
+.footer-newsletter .footer-line {
+  margin: 30px 0;
+}
+
+
+
 /* Responsivité */
 @media (max-width: 768px) {
   .footer-container {
@@ -147,11 +182,11 @@ footer {
     align-items: center;
   }
 
-  .footer-section,
-  .footer-follow-us,
+ 
+
   .footer-newsletter,
   .footer-founders,
-  .footer-organizations,
+
   .footer-support,
   .footer-credits {
     flex: none;
